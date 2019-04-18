@@ -1,0 +1,31 @@
+{
+  "name": "gh-feed",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@glennsl/bs-jest": "^0.4.8",
+    "bs-platform": "^5.0.3",
+    "cra-reason-template": "0.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "reason-react": "^0.7.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "bs:make": "bsb -make-world",
+    "bs:watch": "bsb -make-world -w",
+    "bs:clean": "bsb -clean-world"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
