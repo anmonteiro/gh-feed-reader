@@ -6,11 +6,18 @@
     {
       "src": "bootstrap",
       "use": "now-custom-runtime"
+    },
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
   "routes": [
     {
-      "src": ".*",
+      "src": "/api",
       "dest": "/bootstrap"
     }
   ]

@@ -1,2 +1,8 @@
 /*
 !bootstrap
+!package.json
+!src
+!shared
+!bsconfig.json
+!public
+!yarn.lock
