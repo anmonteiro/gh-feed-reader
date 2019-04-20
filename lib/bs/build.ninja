@@ -1,0 +1,68 @@
+ppx_checked_files = /Users/anmonteiro/Documents/github/gh-feed/node_modules/graphql_ppx/ppx
+bs_package_flags = -bs-package-name reason-scripts
+src_root_dir = /Users/anmonteiro/Documents/github/gh-feed
+bsc = /Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-platform/lib/bsc.exe
+bsdep = /Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-platform/lib/bsb_helper.exe
+warnings = -w -30-40+6+7+27+32..39+44+45+101-44 -warn-error +A
+bsc_flags = -bs-suffix -nostdlib -I '/Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-platform/lib/ocaml' -bs-super-errors -color always
+ppx_flags = -ppx '/Users/anmonteiro/Documents/github/gh-feed/node_modules/graphql_ppx/ppx'
+bs_package_includes = -I /Users/anmonteiro/Documents/github/gh-feed/node_modules/reason-react/lib/ocaml -I /Users/anmonteiro/Documents/github/gh-feed/node_modules/@glennsl/bs-jest/lib/ocaml -I /Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-decoders/lib/ocaml -I /Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-fetch/lib/ocaml
+bs_package_dev_includes = 
+namespace = 
+bsb_dir_group = 0
+refmt = /Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-platform/lib/refmt.exe
+reason_react_jsx = -ppx '/Users/anmonteiro/Documents/github/gh-feed/node_modules/bs-platform/lib/reactjs_jsx_ppx_3.exe'
+refmt_flags = --print binary
+bsc_lib_includes = -I src -I shared
+rule build_ast_and_module_sets
+  command = ${bsc}  ${pp_flags} ${ppx_flags} ${warnings} ${bsc_flags} -c -o ${out} -bs-syntax-only -bs-binary-ast ${in}
+  description = [34mBuilding[39m [2m${out}[22m
+build shared/feed.mlast : build_ast_and_module_sets $src_root_dir/shared/feed.ml |  ${ppx_checked_files}
+rule build_deps
+  command = ${bsdep} ${namespace} -g ${bsb_dir_group} -MD ${in}
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build shared/feed.mlast.d : build_deps shared/feed.mlast |  ${ppx_checked_files}
+rule build_cmj_cmi
+  command = ${bsc} ${bs_package_flags} -bs-assume-no-mli -bs-no-builtin-ppx-ml -bs-no-implicit-include ${bs_package_includes} ${bsc_lib_includes} ${bsc_extra_includes} ${warnings} ${bsc_flags} ${gentypeconfig} -o ${out} -c  ${in} $postbuild
+  depfile = ${in}.d
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build shared/feed.cmj |  $src_root_dir/shared/feed.bs.js shared/feed.cmi : build_cmj_cmi shared/feed.mlast
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:shared
+rule build_ast_and_module_sets_from_re
+  command = ${bsc} -pp "${refmt} ${refmt_flags}" ${reason_react_jsx}  ${ppx_flags} ${warnings} ${bsc_flags} -c -o ${out} -bs-syntax-only -bs-binary-ast -impl ${in}
+  description = [34mBuilding[39m [2m${out}[22m
+build src/ui.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/ui.re |  ${ppx_checked_files}
+build src/ui.mlast.d : build_deps src/ui.mlast |  ${ppx_checked_files}
+build src/ui.cmj |  $src_root_dir/src/ui.bs.js src/ui.cmi : build_cmj_cmi src/ui.mlast
+  bsc_flags = $bsc_flags -bs-re-out -bs-super-errors
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/App.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/App.re |  ${ppx_checked_files}
+build src/App.mlast.d : build_deps src/App.mlast |  ${ppx_checked_files}
+build src/App.cmj |  $src_root_dir/src/App.bs.js src/App.cmi : build_cmj_cmi src/App.mlast
+  bsc_flags = $bsc_flags -bs-re-out -bs-super-errors
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/index.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/index.re |  ${ppx_checked_files}
+build src/index.mlast.d : build_deps src/index.mlast |  ${ppx_checked_files}
+build src/index.cmj |  $src_root_dir/src/index.bs.js src/index.cmi : build_cmj_cmi src/index.mlast
+  bsc_flags = $bsc_flags -bs-re-out -bs-super-errors
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/utils.mlast : build_ast_and_module_sets $src_root_dir/src/utils.ml |  ${ppx_checked_files}
+build src/utils.mlast.d : build_deps src/utils.mlast |  ${ppx_checked_files}
+build src/utils.cmj |  $src_root_dir/src/utils.bs.js src/utils.cmi : build_cmj_cmi src/utils.mlast
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/request.mlast : build_ast_and_module_sets $src_root_dir/src/request.ml |  ${ppx_checked_files}
+build src/request.mlast.d : build_deps src/request.mlast |  ${ppx_checked_files}
+build src/request.cmj |  $src_root_dir/src/request.bs.js src/request.cmi : build_cmj_cmi src/request.mlast
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/app_test.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/app_test.re |  ${ppx_checked_files}
+build src/app_test.mlast.d : build_deps src/app_test.mlast |  ${ppx_checked_files}
+build src/app_test.cmj |  $src_root_dir/src/app_test.bs.js src/app_test.cmi : build_cmj_cmi src/app_test.mlast
+  bsc_flags = $bsc_flags -bs-re-out -bs-super-errors
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build src/decode_feed.mlast : build_ast_and_module_sets $src_root_dir/src/decode_feed.ml |  ${ppx_checked_files}
+build src/decode_feed.mlast.d : build_deps src/decode_feed.mlast |  ${ppx_checked_files}
+build src/decode_feed.cmj |  $src_root_dir/src/decode_feed.bs.js src/decode_feed.cmi : build_cmj_cmi src/decode_feed.mlast
+  bs_package_flags = $bs_package_flags  -bs-package-output es6:src
+build build.ninja : phony  ||  src/decode_feed.mlast.d src/app_test.mlast.d src/request.mlast.d src/utils.mlast.d src/index.mlast.d src/App.mlast.d src/ui.mlast.d shared/feed.mlast.d

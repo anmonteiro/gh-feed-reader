@@ -1,0 +1,11 @@
+(executable
+ (name lambda)
+ (libraries lambda-runtime now h2-lwt-unix h2 lwt_ssl logs.fmt fmt.tty uri
+   syndic lambdasoup feed)
+ (preprocess
+  (pps ppx_deriving_yojson)))
+
+(env
+ (static
+  (flags
+   (:standard -ccopt -static))))

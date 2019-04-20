@@ -1,0 +1,46 @@
+{
+  "name": "gh-feeds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ocaml": "~4.7.1000",
+    "@opam/dune": "*",
+    "@opam/lambda-runtime": "*",
+    "@opam/now": "*",
+    "@opam/httpaf": "*",
+    "@opam/httpaf-lwt": "*",
+    "@opam/h2": "*",
+    "@opam/h2-lwt-unix": "*",
+    "@opam/lwt_ssl": "*",
+    "@opam/logs": "*",
+    "@opam/fmt": "*",
+    "@opam/conf-openssl": "*",
+    "@opam/uri": "*",
+    "@opam/lambdasoup": "*",
+    "@opam/ppx_deriving_yojson": "*",
+    "@opam/syndic": "*"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "@opam/ocamlformat": "*"
+  },
+  "resolutions": {
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#96ec09d",
+    "@opam/httpaf": "inhabitedtype/httpaf:httpaf.opam#50e690f",
+    "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#293ac4d",
+    "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#293ac4d",
+    "@opam/conf-openssl": {
+      "source": "no-source:",
+      "override": {
+        "dependencies": {
+          "@opam/conf-pkg-config": "*",
+          "@esy-packages/esy-openssl": "esy-packages/esy-openssl#65efbc9"
+        }
+      }
+    },
+    "@opam/ssl": "anmonteiro/ocaml-ssl:ssl.opam#b965d15"
+  }
+}

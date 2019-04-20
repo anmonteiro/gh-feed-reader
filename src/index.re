@@ -1,5 +1,4 @@
-%bs.raw
-{|import './index.css'|};
+[@bs.module] external _css: Js.t({..}) = "./index.scss";
 
 [@bs.module "./serviceWorker"]
 external register_service_worker: unit => unit = "register";

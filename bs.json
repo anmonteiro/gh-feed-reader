@@ -1,0 +1,13 @@
+{
+  "name": "gh-feeds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ocaml": "~4.2.3",
+    "@opam/merlin": "*",
+    "@opam/reason": "*"
+  }
+}

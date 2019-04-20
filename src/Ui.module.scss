@@ -1,0 +1,27 @@
+@import "./palette.scss";
+@import "./units.scss";
+
+.card {
+  display: flex;
+  background-color: $baby;
+  border-radius: 8px;
+  box-shadow: 0 $xs $xs 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: $s;
+  transition: margin 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 $xs $s 0 rgba(0, 0, 0, 0.3), 0 6px 40px 0 rgba(0, 0, 0, 0.29);
+  margin-bottom: $m;
+  transform: scale(1.01);
+}
+
+.cardInner {
+  padding: 20px;
+}
+
+/* blue:
+gray:
+cream
+red:
+blond */

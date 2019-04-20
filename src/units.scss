@@ -1,0 +1,9 @@
+@function unit($value) {
+  @return $value * 16px;
+}
+
+$xs: unit(0.25);
+$s: unit(0.5);
+$m: unit(1);
+$l: unit(2);
+$xl: unit(4);
