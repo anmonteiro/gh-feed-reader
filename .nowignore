@@ -6,3 +6,4 @@
 !bsconfig.json
 !public
 !yarn.lock
+!vendor
