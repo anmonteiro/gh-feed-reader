@@ -2,6 +2,10 @@
   "name": "gh-feed",
   "alias": "gh-feed",
   "version": 2,
+  "regions": [
+    "sfo1",
+    "cdg1"
+  ],
   "builds": [
     {
       "src": "bootstrap",
