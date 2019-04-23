@@ -2,20 +2,6 @@ open Belt;
 
 [@bs.module] external css: Js.t({..}) as 'a = "./App.module.scss";
 
-let parseFeed = payload =>
-  Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload);
-
-let getFeed = (~token=?, user) => {
-  let endpoint = {j|https://gh-feed.anmonteiro.now.sh/api?user=$(user)|j};
-  let endpoint =
-    switch (token) {
-    | None => endpoint
-    | Some(token) => {j|$(endpoint)&token=$(token)|j}
-    };
-  Request.request_json(endpoint)
-  |> Js.Promise.(then_(payload => resolve(parseFeed(payload))));
-};
-
 module Entry = {
   module Entry = Feed.Entry;
 
@@ -53,12 +39,7 @@ module Entry = {
   };
 };
 
-module GithubFeed = {
-  type state =
-    | Loading
-    | Data(Feed.t)
-    | Error(string);
-
+module Header = {
   let feedTitle = (~link=?, feedTitle) => {
     switch (link) {
     | Some({Feed.Link.title, href}) =>
@@ -69,52 +50,32 @@ module GithubFeed = {
   };
 
   [@react.component]
-  let make = () => {
-    open Utils;
-    let {ReasonReactRouter.search} = ReasonReactRouter.useUrl();
-    let qp = QueryParams.make(search);
-    let ((user, token), _updateUser) =
-      React.useState(() => {
-        let user =
-          switch (QueryParams.get(qp, "user")) {
-          | Some(user) => user
-          | None => "anmonteiro"
-          };
-        (user, QueryParams.get(qp, "token"));
-      });
-    let (state, updateState) = React.useState(() => Loading);
-    React.useEffect0(() => {
-      let _ =
-        getFeed(~token?, user)
-        |> Utils.Promise.map(
-             fun
-             | Result.Ok(feed) => updateState(_ => Data(feed))
-             | Error(e) =>
-               updateState(_ =>
-                 Error(Format.asprintf("%a", Decoders_bs.Decode.pp_error, e))
-               ),
-           );
-      None;
-    });
+  let make = (~link=?, ~title) => {
+    <header className=css##appHeader>
+      <h2> {feedTitle(~link?, title)} </h2>
+    </header>;
+  };
+};
 
-    <div>
-      <header className=css##appHeader>
-        <h2>
-          {switch (state) {
-           | Data({Feed.links, title}) =>
-             switch (links) {
-             | [link, ..._] => feedTitle(~link, title)
-             | _ => feedTitle(title)
-             }
-           | Loading => React.string("Feed")
-           | Error(_) => React.string("Error")
-           }}
-        </h2>
-      </header>
+module GithubFeed = {
+  [@react.component]
+  let make = (~token=?, ~user) => {
+    let state = Api.ReactCache.read(Api.feedResource, {user, token});
+    let (link, title) =
+      switch (state) {
+      | Data({Feed.links, title}) =>
+        switch (links) {
+        | [link, ..._] => (Some(link), title)
+        | _ => (None, title)
+        }
+      | Error(_) => (None, "Error")
+      };
+
+    <>
+      <Header ?link title />
       <main className=css##appMain>
         <section>
           {switch (state) {
-           | Loading => React.null
            | Data(feed) =>
              feed.Feed.entries
              ->List.mapWithIndex((i, entry) =>
@@ -126,10 +87,28 @@ module GithubFeed = {
            }}
         </section>
       </main>
-    </div>;
+    </>;
   };
 };
 
 /* TODO: insert a username to fetch */
 [@react.component]
-let make = () => <GithubFeed />;
+let make = () => {
+  open Utils;
+  let {ReasonReactRouter.search} = ReasonReactRouter.useUrl();
+  let qp = QueryParams.make(search);
+  let ((user, token), _updateUser) =
+    React.useState(() => {
+      let user =
+        switch (QueryParams.get(qp, "user")) {
+        | Some(user) => user
+        | None => "anmonteiro"
+        };
+      (user, QueryParams.get(qp, "token"));
+    });
+  <div>
+    <React.Suspense maxDuration=250 fallback={<Header title="Loading" />}>
+      <GithubFeed ?token user />
+    </React.Suspense>
+  </div>;
+};

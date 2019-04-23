@@ -33,6 +33,6 @@ module QueryParams = struct
 
   external make : string -> t = "URLSearchParams" [@@bs.new]
 
-  external get : t -> string -> string option = "get"
+  external get : t -> string -> string option = ""
     [@@bs.send] [@@bs.return nullable]
 end
