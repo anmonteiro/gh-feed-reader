@@ -2,6 +2,10 @@
   "name": "gh-feed",
   "alias": "gh-feed",
   "version": 2,
+  "regions": [
+    "sfo1",
+    "cdg1"
+  ],
   "builds": [
     {
       "src": "bootstrap",
@@ -18,7 +22,11 @@
   "routes": [
     {
       "src": "/api",
-      "dest": "/bootstrap"
+      "dest": "/bootstrap",
+      "headers": {
+        "cache-control": "s-maxage=180",
+        "access-control-allow-origin": "*"
+      }
     }
   ]
 }
