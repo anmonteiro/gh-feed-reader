@@ -2,13 +2,11 @@ open Util
 open Syndic
 open Lwt.Infix
 
-let cors = "Access-Control-Allow-Origin", "*"
-
 let send_response reqd body =
   let open Now in
   let response =
     Response.create
-      ~headers:(Headers.of_list [ cors; "content-type", "application/json" ])
+      ~headers:(Headers.of_list [ "content-type", "application/json" ])
       `OK
   in
   Reqd.respond_with_string reqd response (Yojson.Safe.to_string body)
@@ -18,7 +16,7 @@ let send_error_response reqd msg =
   let payload = `Assoc [ "error", `String msg ] in
   let response =
     Response.create
-      ~headers:(Headers.of_list [ cors; "content-type", "application/json" ])
+      ~headers:(Headers.of_list [ "content-type", "application/json" ])
       `Bad_request
   in
   Reqd.respond_with_string reqd response (Yojson.Safe.to_string payload)
