@@ -4,7 +4,7 @@ let parseFeed = payload =>
   Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload);
 
 let getFeed = (~token=?, user) => {
-  let endpoint = {j|https://gh-feed.anmonteiro.now.sh/api?user=$(user)|j};
+  let endpoint = {j|https://gh-feed.now.sh/api?user=$(user)|j};
   let endpoint =
     switch (token) {
     | None => endpoint
