@@ -68,7 +68,7 @@ module GithubFeed = {
         | [link, ..._] => (Some(link), title)
         | _ => (None, title)
         }
-      | Error(_) => (None, "Error")
+      | Error(msg) => (None, Format.asprintf("Error: %s", msg))
       };
 
     <>
@@ -95,14 +95,14 @@ module GithubFeed = {
 [@react.component]
 let make = () => {
   open Utils;
-  let {ReasonReactRouter.search} = ReasonReactRouter.useUrl();
+  let {ReasonReactRouter.search, path} = ReasonReactRouter.useUrl();
   let qp = QueryParams.make(search);
   let ((user, token), _updateUser) =
     React.useState(() => {
       let user =
-        switch (QueryParams.get(qp, "user")) {
-        | Some(user) => user
-        | None => "anmonteiro"
+        switch (path) {
+        | [user, ..._] => user
+        | _ => "anmonteiro"
         };
       (user, QueryParams.get(qp, "token"));
     });

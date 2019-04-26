@@ -1,7 +1,10 @@
 open Belt;
 
 let parseFeed = payload =>
-  Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload);
+  switch (Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload)) {
+  | Result.Ok(data) => Result.Ok(data)
+  | Error(e) => Error(Format.asprintf("%a", Decoders_bs.Decode.pp_error, e))
+  };
 
 let getFeed = (~token=?, user) => {
   let endpoint = {j|https://gh-feed.now.sh/api?user=$(user)|j};
@@ -11,7 +14,11 @@ let getFeed = (~token=?, user) => {
     | Some(token) => {j|$(endpoint)&token=$(token)|j}
     };
   Request.request_json(endpoint)
-  |> Js.Promise.(then_(payload => resolve(parseFeed(payload))));
+  |> Js.Promise.(then_(payload => resolve(parseFeed(payload))))
+  /* TODO: Js.Promise is fairly incomplete. Let's use Repromise. */
+  |> Js.Promise.(
+       catch(_error => resolve(Result.Error("Error fetching feed")))
+     );
 };
 
 module ReactCache = {
@@ -72,8 +79,7 @@ let feedResource =
       |> Utils.Promise.map(
            fun
            | Result.Ok(feed) => Data(feed)
-           | Error(e) =>
-             Error(Format.asprintf("%a", Decoders_bs.Decode.pp_error, e)),
+           | Error(e) => Error(e),
          ),
     ({token, user}) =>
       switch (token) {
