@@ -46,7 +46,10 @@
     },
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/static/$1",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      }
     },
     {
       "src": "/.*",
