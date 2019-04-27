@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@aantron/repromise@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@aantron/repromise/-/repromise-0.6.0.tgz#45bea66e593b7e0f968bc0fd03f0b6578003e698"
+  integrity sha512-nxNUWKQQhRJKmsExKi2qyZUryvpEz07H17fEhRaZC3wXkxCtjcdx9j5LMnV0+anbU+EyG/X+UnfATReerBZgMA==
+
 "@babel/code-frame@7.0.0", "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"

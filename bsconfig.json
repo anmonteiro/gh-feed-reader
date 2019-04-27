@@ -8,7 +8,8 @@
     "reason-react",
     "@glennsl/bs-jest",
     "bs-decoders",
-    "bs-fetch"
+    "bs-fetch",
+    "@aantron/repromise"
   ],
   "bsc-flags": [
     "-bs-super-errors"

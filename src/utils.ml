@@ -1,10 +1,3 @@
-module Promise = struct
-  include Js.Promise
-
-  let map : ('a -> 'b) -> 'a Js.Promise.t -> 'b Js.Promise.t =
-   fun f p -> then_ (fun a -> resolve (f a)) p
-end
-
 let dayOfWeek = function
   | 0 ->
     "Sunday"

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aantron/repromise": "^0.6.0",
     "@glennsl/bs-jest": "^0.4.8",
     "@primer/css": "^12.2.3",
     "bs-decoders": "^0.1.2",

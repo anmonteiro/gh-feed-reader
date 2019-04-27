@@ -8,3 +8,4 @@ let request_json endpoint =
        ~headers:(HeadersInit.makeWithArray [| "accept", "application/json" |])
        ())
   |> Js.Promise.then_ Response.json
+  |> Repromise.Rejectable.fromJsPromise

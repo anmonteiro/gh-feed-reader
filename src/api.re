@@ -1,5 +1,7 @@
 open Belt;
 
+[@bs.get] external js_error_message: Js.Promise.error => string = "message";
+
 let parseFeed = payload =>
   switch (Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload)) {
   | Result.Ok(data) => Result.Ok(data)
@@ -14,10 +16,9 @@ let getFeed = (~token=?, user) => {
     | Some(token) => {j|$(endpoint)&token=$(token)|j}
     };
   Request.request_json(endpoint)
-  |> Js.Promise.(then_(payload => resolve(parseFeed(payload))))
-  /* TODO: Js.Promise is fairly incomplete. Let's use Repromise. */
-  |> Js.Promise.(
-       catch(_error => resolve(Result.Error("Error fetching feed")))
+  |> Repromise.Rejectable.map(payload => parseFeed(payload))
+  |> Repromise.Rejectable.catch(error =>
+       Repromise.resolved(Result.Error(js_error_message(error)))
      );
 };
 
@@ -76,11 +77,12 @@ let feedResource =
   ReactCache.createResourceWithCustomHash(
     ({token, user}) =>
       getFeed(~token?, user)
-      |> Utils.Promise.map(
+      |> Repromise.map(
            fun
            | Result.Ok(feed) => Data(feed)
            | Error(e) => Error(e),
-         ),
+         )
+      |> Repromise.Rejectable.toJsPromise,
     ({token, user}) =>
       switch (token) {
       | Some(token) => `String(user ++ token)
