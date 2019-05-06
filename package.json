@@ -8,16 +8,20 @@
     "@primer/css": "^12.2.3",
     "bs-decoders": "^0.1.2",
     "bs-fetch": "^0.3.1",
-    "bs-platform": "5.0.4-dev.1",
-    "cra-reason-template": "0.1.1",
+    "bs-platform": "6.0.1",
+    "cra-reason-template": "^0.1.2",
     "github-syntax-light": "^0.5.0",
-    "graphql_ppx": "^0.2.8",
     "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
-    "react": "^16.8.6",
+    "react": "^16.9.0-alpha.0",
     "react-cache": "file:vendor/react-cache",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.9.0-alpha.0",
     "reason-react": "^0.7.0"
+  },
+  "resolutions": {
+    "react": "^16.9.0-alpha.0",
+    "react-dom": "^16.9.0-alpha.0",
+    "babel-jest": "24.7.1"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
@@ -27,7 +31,7 @@
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "now-build": "yarn bs:make && yarn build"
+    "now-build": "yarn bs:clean && yarn bs:make && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
