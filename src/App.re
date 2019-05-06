@@ -57,12 +57,42 @@ module Header = {
   };
 };
 
+module FeedPage = {
+  [@react.component]
+  let make = (~token=?, ~page, ~user, ~loadingRef) => {
+    let feedPage =
+      Api.ReactCache.read(Api.feedResource, {user, token, page});
+
+    /* If this is executed, it means the data was successfully read from the
+     * remote endpoint. We are done loading. */
+    React.useEffect0(() => {
+      React.Ref.setCurrent(loadingRef, false);
+      None;
+    });
+
+    <section>
+      {switch (feedPage) {
+       | Data(feed) =>
+         feed.Feed.entries
+         ->List.mapWithIndex((i, entry) =>
+             <Entry key={string_of_int(i)} entry />
+           )
+         ->List.toArray
+         ->React.array
+       | Error(_) => React.null
+       }}
+    </section>;
+  };
+};
+
 module GithubFeed = {
   [@react.component]
-  let make = (~token=?, ~user) => {
-    let state = Api.ReactCache.read(Api.feedResource, {user, token});
+  let make = (~token=?, ~user, ~page, ~loadingRef) => {
+    /* first page is always shown, and we need it to show the header */
+    let firstPage =
+      Api.ReactCache.read(Api.feedResource, {user, token, page: 1});
     let (link, title) =
-      switch (state) {
+      switch (firstPage) {
       | Data({Feed.links, title}) =>
         switch (links) {
         | [link, ..._] => (Some(link), title)
@@ -74,18 +104,13 @@ module GithubFeed = {
     <>
       <Header ?link title />
       <main className=css##appMain>
-        <section>
-          {switch (state) {
-           | Data(feed) =>
-             feed.Feed.entries
-             ->List.mapWithIndex((i, entry) =>
-                 <Entry key={string_of_int(i)} entry />
-               )
-             ->List.toArray
-             ->React.array
-           | Error(_) => React.null
-           }}
-        </section>
+        {React.array(
+           Belt.Array.makeBy(page, i =>
+             <React.Suspense key=i fallback={<div className=css##loader />}>
+               <FeedPage ?token page={i + 1} user loadingRef />
+             </React.Suspense>
+           ),
+         )}
       </main>
     </>;
   };
@@ -96,19 +121,40 @@ module GithubFeed = {
 let make = () => {
   open Utils;
   let {ReasonReactRouter.search, path} = ReasonReactRouter.useUrl();
-  let qp = QueryParams.make(search);
-  let ((user, token), _updateUser) =
-    React.useState(() => {
-      let user =
-        switch (path) {
-        | [user, ..._] => user
-        | _ => "anmonteiro"
+  let (page, setPage) = React.useState(() => 1);
+  let {Scroll.y, _} = Scroll.useScroll();
+  let loadingRef = React.useRef(false);
+
+  React.useEffect2(
+    () => {
+      let loading = React.Ref.current(loadingRef);
+      if (!loading) {
+        let totalHeight = window##innerHeight + y;
+        let offsetHeight = documentElement##offsetHeight;
+        /* allow a 20px epsilon */
+        if (totalHeight === offsetHeight) {
+          React.Ref.setCurrent(loadingRef, true);
+          setPage(prev => prev + 1);
         };
-      (user, QueryParams.get(qp, "token"));
-    });
+      };
+      None;
+    },
+    (page, y),
+  );
+
+  let qp = QueryParams.make(search);
+  let (user, token) = {
+    let user =
+      switch (path) {
+      | [user, ..._] => user
+      | _ => "anmonteiro"
+      };
+    (user, QueryParams.get(qp, "token"));
+  };
+
   <div>
-    <React.Suspense maxDuration=250 fallback={<Header title="Loading" />}>
-      <GithubFeed ?token user />
+    <React.Suspense fallback={<Header title="Loading" />}>
+      <GithubFeed ?token page user loadingRef />
     </React.Suspense>
   </div>;
 };

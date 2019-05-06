@@ -8,8 +8,8 @@ let parseFeed = payload =>
   | Error(e) => Error(Format.asprintf("%a", Decoders_bs.Decode.pp_error, e))
   };
 
-let getFeed = (~token=?, user) => {
-  let endpoint = {j|https://gh-feed.now.sh/api?user=$(user)|j};
+let getFeed = (~token=?, ~page, user) => {
+  let endpoint = {j|https://gh-feed.now.sh/api?user=$(user)&page=$(page)|j};
   let endpoint =
     switch (token) {
     | None => endpoint
@@ -67,6 +67,7 @@ module ReactCache = {
 type api_input = {
   token: option(string),
   user: string,
+  page: int,
 };
 
 type state =
@@ -75,17 +76,19 @@ type state =
 
 let feedResource =
   ReactCache.createResourceWithCustomHash(
-    ({token, user}) =>
-      getFeed(~token?, user)
+    ({token, user, page}) =>
+      getFeed(~token?, ~page, user)
       |> Repromise.map(
            fun
            | Result.Ok(feed) => Data(feed)
            | Error(e) => Error(e),
          )
       |> Repromise.Rejectable.toJsPromise,
-    ({token, user}) =>
+    ({token, user, page}) => {
+      let hash = user ++ string_of_int(page);
       switch (token) {
-      | Some(token) => `String(user ++ token)
-      | None => `String(user)
-      },
+      | Some(token) => `String(hash ++ token)
+      | None => `String(hash)
+      };
+    },
   );

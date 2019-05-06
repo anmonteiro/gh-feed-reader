@@ -7,7 +7,6 @@ bug-reports: "https://github.com/anmonteiro/ocaml-h2/issues"
 dev-repo: "git+https://github.com/anmonteiro/ocaml-h2.git"
 doc: "https://anmonteiro.github.io/ocaml-h2/"
 build: [
-  ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
 ]
 depends: [
@@ -34,6 +33,9 @@ specifics. It also preserves the same API as http/af wherever possible.
 """
 url {
   src:
-    "https://github.com/anmonteiro/ocaml-h2/releases/download/0.2.0/h2-0.2.0.tbz"
-  checksum: "md5=c883927ce8a9f3f7159ef7b20988f051"
+    "https://github.com/anmonteiro/ocaml-h2/releases/download/0.3.0/h2-0.3.0.tbz"
+  checksum: [
+    "sha256=abe11e14b22c44dc8274adb88ba96e7b6907cd0e71318cffedac9cc6c82cf03e"
+    "sha512=d9acd46835da4c284a93d21dd9ffb6fb380ed9ea9e400d6fd720fef17a5b6c66a45c4c487468224172de1d40d17dc79aa9e8efb49eb1ff1a711e3e081caf0293"
+  ]
 }
