@@ -72,12 +72,19 @@ module FeedPage = {
 
     <section>
       {switch (feedPage) {
-       | Data(feed) =>
-         feed.Feed.entries
-         ->List.mapWithIndexU((. i, entry) =>
-             <Entry key={string_of_int(i)} entry />
+       | Data({Feed.entries}) =>
+         entries
+         ->List.reduceWithIndexU(
+             Array.makeUninitializedUnsafe(List.length(entries)),
+             (. arr, entry, i) => {
+               Array.setUnsafe(
+                 arr,
+                 i,
+                 <Entry key={string_of_int(i)} entry />,
+               );
+               arr;
+             },
            )
-         ->List.toArray
          ->React.array
        | Error(_) => React.null
        }}
