@@ -20,7 +20,8 @@
   },
   "resolutions": {
     "react": "^16.9.0-alpha.0",
-    "react-dom": "^16.9.0-alpha.0"
+    "react-dom": "^16.9.0-alpha.0",
+    "babel-jest": "24.7.1"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
@@ -30,7 +31,7 @@
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "now-build": "rm -rf node_modules && yarn && yarn bs:clean && yarn bs:make && yarn build"
+    "now-build": "yarn bs:clean && yarn bs:make && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
