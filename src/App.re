@@ -74,7 +74,7 @@ module FeedPage = {
       {switch (feedPage) {
        | Data(feed) =>
          feed.Feed.entries
-         ->List.mapWithIndex((i, entry) =>
+         ->List.mapWithIndexU((. i, entry) =>
              <Entry key={string_of_int(i)} entry />
            )
          ->List.toArray
@@ -105,7 +105,7 @@ module GithubFeed = {
       <Header ?link title />
       <main className=css##appMain>
         {React.array(
-           Belt.Array.makeBy(page, i =>
+           Array.makeByU(page, (. i) =>
              <React.Suspense key=i fallback={<div className=css##loader />}>
                <FeedPage ?token page={i + 1} user loadingRef />
              </React.Suspense>
