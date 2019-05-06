@@ -132,7 +132,7 @@ let make = () => {
   let {Scroll.y, _} = Scroll.useScroll();
   let loadingRef = React.useRef(false);
 
-  React.useEffect2(
+  React.useEffect3(
     () => {
       let loading = React.Ref.current(loadingRef);
       if (!loading) {
@@ -146,7 +146,7 @@ let make = () => {
       };
       None;
     },
-    (page, y),
+    (page, setPage, y),
   );
 
   let qp = QueryParams.make(search);
