@@ -30,7 +30,7 @@
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "now-build": "yarn bs:make && yarn build"
+    "now-build": "yarn bs:clean && yarn bs:make && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
