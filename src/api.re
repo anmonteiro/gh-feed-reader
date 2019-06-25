@@ -57,9 +57,9 @@ module ReactCache = {
     );
   };
 
-  [@bs.send] external read: (resource('i, 'v), 'i) => 'v = "";
+  [@bs.send] external read: (resource('i, 'v), 'i) => 'v = "read";
 
-  [@bs.send] external preload: (resource('i, 'v), 'i) => unit = "";
+  [@bs.send] external preload: (resource('i, 'v), 'i) => unit = "preload";
 };
 
 type api_input = {
