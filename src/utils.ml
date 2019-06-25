@@ -26,16 +26,16 @@ module QueryParams = struct
 
   external make : string -> t = "URLSearchParams" [@@bs.new]
 
-  external get : t -> string -> string option = ""
+  external get : t -> string -> string option = "get"
     [@@bs.send] [@@bs.return nullable]
 end
 
 type window =
   < innerHeight : int ; pageXOffset : int ; pageYOffset : int > Js.t
 
-external window : window = "" [@@bs.val]
+external window : window = "window" [@@bs.val]
 
-external documentElement : < scrollTop : int ; offsetHeight : int > Js.t = ""
+external documentElement : < scrollTop : int ; offsetHeight : int > Js.t = "documentElement"
   [@@bs.scope "document"] [@@bs.val]
 
 let throttle f ms =

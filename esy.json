@@ -37,7 +37,7 @@
       "override": {
         "dependencies": {
           "@opam/conf-pkg-config": "*",
-          "@esy-packages/esy-openssl": "esy-packages/esy-openssl#65efbc9"
+          "@esy-packages/esy-openssl": "esy-packages/esy-openssl#f6107d6"
         }
       }
     },

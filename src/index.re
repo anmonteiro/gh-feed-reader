@@ -11,7 +11,7 @@ module ReactDOM = {
   [@bs.module "react-dom"]
   external createRoot: Dom.element => root = "unstable_createRoot";
 
-  [@bs.send] external render: (root, React.element) => unit = "";
+  [@bs.send] external render: (root, React.element) => unit = "render";
 
   [@bs.val] [@bs.return nullable]
   external _getElementById: string => option(Dom.element) =
