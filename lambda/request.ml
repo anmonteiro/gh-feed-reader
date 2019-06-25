@@ -112,8 +112,7 @@ let send_request ~meth ~additional_headers ?body uri =
     failwith "handshake not established?"
   | Some ssl_socket ->
     (match Ssl.get_negotiated_alpn_protocol ssl_socket with
-    | None ->
-      Lwt.fail_with "Unable to negotiate a protocol?"
+    | None
     | Some "http/1.1" ->
       let request_headers =
         Httpaf.Request.create
