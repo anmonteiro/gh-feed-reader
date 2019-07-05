@@ -1,6 +1,6 @@
 {
-  "checksum": "ef8d6fef184454ff332a351d49ac5afd",
-  "root": "gh-feeds@link-dev:./esy.json",
+  "checksum": "86623d2be8e8e9a85a74b5ea20523ba1",
+  "root": "gh-feed@link-dev:./esy.json",
   "node": {
     "yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#cca65f99674ed2d954d28788edeb8c57fada5ed0@d41d8cd9": {
       "id":
@@ -32,15 +32,15 @@
       "dependencies": [],
       "devDependencies": []
     },
-    "gh-feeds@link-dev:./esy.json": {
-      "id": "gh-feeds@link-dev:./esy.json",
-      "name": "gh-feeds",
+    "gh-feed@link-dev:./esy.json": {
+      "id": "gh-feed@link-dev:./esy.json",
+      "name": "gh-feed",
       "version": "link-dev:./esy.json",
       "source": { "type": "link-dev", "path": ".", "manifest": "esy.json" },
       "overrides": [],
       "dependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/uri@opam:2.2.1@6bd26f86",
-        "@opam/syndic@opam:1.6.1@388c4363",
+        "@opam/syndic@opam:1.6.1@388c4363", "@opam/ssl@opam:0.5.8@d93fd163",
         "@opam/ppx_deriving_yojson@opam:3.4@73152ee9",
         "@opam/now@github:anmonteiro/aws-lambda-ocaml-runtime:now.opam#293ac4d@d41d8cd9",
         "@opam/lwt_ssl@opam:1.1.2@ac833920",
@@ -52,7 +52,7 @@
         "@opam/h2-lwt-unix@opam:0.3.0@f715be8b",
         "@opam/h2@opam:0.3.0@bc97ac16", "@opam/fmt@opam:0.8.6@a06c130d",
         "@opam/dune@opam:1.10.0@b15ce221",
-        "@opam/conf-openssl@no-source:@5287d75a"
+        "@opam/conf-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@d07bb0af"
       ],
       "devDependencies": [
         "@opam/ocamlformat@opam:0.10@76aa45c4",
@@ -385,23 +385,32 @@
         "ocaml@4.7.1004@d41d8cd9", "@opam/base@opam:v0.12.2@e209c8f2"
       ]
     },
-    "@opam/ssl@github:anmonteiro/ocaml-ssl:ssl.opam#b965d15@d41d8cd9": {
-      "id": "@opam/ssl@github:anmonteiro/ocaml-ssl:ssl.opam#b965d15@d41d8cd9",
+    "@opam/ssl@opam:0.5.8@d93fd163": {
+      "id": "@opam/ssl@opam:0.5.8@d93fd163",
       "name": "@opam/ssl",
-      "version": "github:anmonteiro/ocaml-ssl:ssl.opam#b965d15",
+      "version": "opam:0.5.8",
       "source": {
         "type": "install",
-        "source": [ "github:anmonteiro/ocaml-ssl:ssl.opam#b965d15" ]
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/4b/4b2cd1e21f25989b958e880f7b4791d1#md5:4b2cd1e21f25989b958e880f7b4791d1",
+          "archive:https://github.com/savonet/ocaml-ssl/archive/0.5.8.tar.gz#md5:4b2cd1e21f25989b958e880f7b4791d1"
+        ],
+        "opam": {
+          "name": "ssl",
+          "version": "0.5.8",
+          "path": "esy.lock/opam/ssl.0.5.8"
+        }
       },
       "overrides": [],
       "dependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/dune@opam:1.10.0@b15ce221",
-        "@opam/conf-openssl@no-source:@5287d75a",
+        "@opam/conf-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@d07bb0af",
         "@opam/base-unix@opam:base@87d0b2eb",
         "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [
-        "ocaml@4.7.1004@d41d8cd9", "@opam/conf-openssl@no-source:@5287d75a",
+        "ocaml@4.7.1004@d41d8cd9",
+        "@opam/conf-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@d07bb0af",
         "@opam/base-unix@opam:base@87d0b2eb"
       ]
     },
@@ -568,7 +577,7 @@
       "dependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/stdio@opam:v0.12.0@1d18adcb",
         "@opam/ppx_derivers@opam:1.2.1@0b458500",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/ocaml-compiler-libs@opam:v0.12.0@8482f7f7",
         "@opam/dune@opam:1.10.0@b15ce221",
         "@opam/base@opam:v0.12.2@e209c8f2",
@@ -577,7 +586,7 @@
       "devDependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/stdio@opam:v0.12.0@1d18adcb",
         "@opam/ppx_derivers@opam:1.2.1@0b458500",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/ocaml-compiler-libs@opam:v0.12.0@8482f7f7",
         "@opam/base@opam:v0.12.2@e209c8f2"
       ]
@@ -601,12 +610,12 @@
       "overrides": [],
       "dependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/ocamlfind@opam:1.8.0@f744a0c5",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/dune@opam:1.10.0@b15ce221", "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [
         "ocaml@4.7.1004@d41d8cd9", "@opam/ocamlfind@opam:1.8.0@f744a0c5",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd"
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4"
       ]
     },
     "@opam/ppx_tools@opam:5.1+4.06.0@a9357225": {
@@ -717,7 +726,7 @@
         "@opam/ppxfind@opam:1.3@a7b3cc46",
         "@opam/ppx_tools@opam:5.1+4.06.0@a9357225",
         "@opam/ppx_derivers@opam:1.2.1@0b458500",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/dune@opam:1.10.0@b15ce221", "@opam/cppo@opam:1.6.6@25eb99ce",
         "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
@@ -725,7 +734,7 @@
         "ocaml@4.7.1004@d41d8cd9", "@opam/result@opam:1.4@7add0d71",
         "@opam/ppx_tools@opam:5.1+4.06.0@a9357225",
         "@opam/ppx_derivers@opam:1.2.1@0b458500",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/dune@opam:1.10.0@b15ce221"
       ]
     },
@@ -797,7 +806,7 @@
         "@opam/uuseg@opam:12.0.0@bf82c4c7",
         "@opam/stdio@opam:v0.12.0@1d18adcb",
         "@opam/octavius@opam:1.2.1@6ab49b19",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/fpath@opam:0.7.2@45477b93", "@opam/dune@opam:1.10.0@b15ce221",
         "@opam/cmdliner@opam:1.0.4@93208aac",
         "@opam/base-unix@opam:base@87d0b2eb",
@@ -809,7 +818,7 @@
         "@opam/uuseg@opam:12.0.0@bf82c4c7",
         "@opam/stdio@opam:v0.12.0@1d18adcb",
         "@opam/octavius@opam:1.2.1@6ab49b19",
-        "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+        "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
         "@opam/fpath@opam:0.7.2@45477b93",
         "@opam/cmdliner@opam:1.0.4@93208aac",
         "@opam/base-unix@opam:base@87d0b2eb",
@@ -872,20 +881,20 @@
       ],
       "devDependencies": [ "ocaml@4.7.1004@d41d8cd9" ]
     },
-    "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd": {
-      "id": "@opam/ocaml-migrate-parsetree@opam:1.3.1@266527bd",
+    "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4": {
+      "id": "@opam/ocaml-migrate-parsetree@opam:1.4.0@107a1ff4",
       "name": "@opam/ocaml-migrate-parsetree",
-      "version": "opam:1.3.1",
+      "version": "opam:1.4.0",
       "source": {
         "type": "install",
         "source": [
-          "archive:https://opam.ocaml.org/cache/sha256/83/83e4955a6fd6b494646ab92c476840ea96b5fb434435c287e7ad3e6efadc8338#sha256:83e4955a6fd6b494646ab92c476840ea96b5fb434435c287e7ad3e6efadc8338",
-          "archive:https://github.com/ocaml-ppx/ocaml-migrate-parsetree/releases/download/v1.3.1/ocaml-migrate-parsetree-v1.3.1.tbz#sha256:83e4955a6fd6b494646ab92c476840ea96b5fb434435c287e7ad3e6efadc8338"
+          "archive:https://opam.ocaml.org/cache/sha256/23/231fbdc205187b3ee266b535d9cfe44b599067b2f6e97883c782ea7bb577d3b8#sha256:231fbdc205187b3ee266b535d9cfe44b599067b2f6e97883c782ea7bb577d3b8",
+          "archive:https://github.com/ocaml-ppx/ocaml-migrate-parsetree/releases/download/v1.4.0/ocaml-migrate-parsetree-v1.4.0.tbz#sha256:231fbdc205187b3ee266b535d9cfe44b599067b2f6e97883c782ea7bb577d3b8"
         ],
         "opam": {
           "name": "ocaml-migrate-parsetree",
-          "version": "1.3.1",
-          "path": "esy.lock/opam/ocaml-migrate-parsetree.1.3.1"
+          "version": "1.4.0",
+          "path": "esy.lock/opam/ocaml-migrate-parsetree.1.4.0"
         }
       },
       "overrides": [],
@@ -1049,16 +1058,14 @@
       },
       "overrides": [],
       "dependencies": [
-        "ocaml@4.7.1004@d41d8cd9",
-        "@opam/ssl@github:anmonteiro/ocaml-ssl:ssl.opam#b965d15@d41d8cd9",
+        "ocaml@4.7.1004@d41d8cd9", "@opam/ssl@opam:0.5.8@d93fd163",
         "@opam/lwt@opam:4.2.1@c1888ec9",
         "@opam/jbuilder@opam:transition@58bdfe0a",
         "@opam/base-unix@opam:base@87d0b2eb",
         "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [
-        "ocaml@4.7.1004@d41d8cd9",
-        "@opam/ssl@github:anmonteiro/ocaml-ssl:ssl.opam#b965d15@d41d8cd9",
+        "ocaml@4.7.1004@d41d8cd9", "@opam/ssl@opam:0.5.8@d93fd163",
         "@opam/lwt@opam:4.2.1@c1888ec9", "@opam/base-unix@opam:base@87d0b2eb"
       ]
     },
@@ -1636,22 +1643,22 @@
       ],
       "devDependencies": []
     },
-    "@opam/conf-openssl@no-source:@5287d75a": {
-      "id": "@opam/conf-openssl@no-source:@5287d75a",
+    "@opam/conf-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@d07bb0af": {
+      "id":
+        "@opam/conf-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@d07bb0af",
       "name": "@opam/conf-openssl",
-      "version": "no-source:",
-      "source": { "type": "install", "source": [ "no-source:" ] },
-      "overrides": [
-        {
-          "dependencies": {
-            "@opam/conf-pkg-config": "*",
-            "@esy-packages/esy-openssl": "esy-packages/esy-openssl#f6107d6"
-          }
-        }
-      ],
+      "version":
+        "archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511"
+        ]
+      },
+      "overrides": [ "esy.lock/overrides/d07bb0afe1bd3469bc98532ab8438186" ],
       "dependencies": [
         "@opam/conf-pkg-config@opam:1.1@da0b7ce6",
-        "@esy-packages/esy-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@4d267550"
+        "@esy-packages/esy-autoconf@github:esy-packages/esy-autoconf:package.json#71a8836@d41d8cd9"
       ],
       "devDependencies": []
     },
@@ -1927,19 +1934,16 @@
         "@opam/bigstringaf@opam:0.5.0@93c1ca28"
       ]
     },
-    "@esy-packages/esy-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@4d267550": {
+    "@esy-packages/esy-autoconf@github:esy-packages/esy-autoconf:package.json#71a8836@d41d8cd9": {
       "id":
-        "@esy-packages/esy-openssl@archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511@4d267550",
-      "name": "@esy-packages/esy-openssl",
-      "version":
-        "archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511",
+        "@esy-packages/esy-autoconf@github:esy-packages/esy-autoconf:package.json#71a8836@d41d8cd9",
+      "name": "@esy-packages/esy-autoconf",
+      "version": "github:esy-packages/esy-autoconf:package.json#71a8836",
       "source": {
         "type": "install",
-        "source": [
-          "archive:https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz#sha1:eb59b090bd757e30b676fb5e80c25ddb5a2f9511"
-        ]
+        "source": [ "github:esy-packages/esy-autoconf:package.json#71a8836" ]
       },
-      "overrides": [ "esy.lock/overrides/4d26755065a0ae5ee6bf67c12b4477cd" ],
+      "overrides": [],
       "dependencies": [],
       "devDependencies": []
     },

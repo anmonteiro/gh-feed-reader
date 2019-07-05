@@ -1,5 +1,5 @@
 {
-  "name": "gh-feeds",
+  "name": "gh-feed",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,6 +15,7 @@
     "@opam/h2": "*",
     "@opam/h2-lwt-unix": "*",
     "@opam/lwt_ssl": "*",
+    "@opam/ssl": ">= 0.5.8",
     "@opam/logs": "*",
     "@opam/fmt": "*",
     "@opam/conf-openssl": "*",
@@ -32,15 +33,6 @@
     "@opam/httpaf": "inhabitedtype/httpaf:httpaf.opam#50e690f",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#293ac4d",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#293ac4d",
-    "@opam/conf-openssl": {
-      "source": "no-source:",
-      "override": {
-        "dependencies": {
-          "@opam/conf-pkg-config": "*",
-          "@esy-packages/esy-openssl": "esy-packages/esy-openssl#f6107d6"
-        }
-      }
-    },
-    "@opam/ssl": "anmonteiro/ocaml-ssl:ssl.opam#b965d15"
+    "@opam/conf-openssl": "esy-packages/esy-openssl#d1c35c5"
   }
 }
