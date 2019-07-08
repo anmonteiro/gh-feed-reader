@@ -6,12 +6,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ocaml": "~4.7.1000",
+    "ocaml": "~4.8.0",
     "@opam/dune": "*",
     "@opam/lambda-runtime": "*",
     "@opam/now": "*",
     "@opam/httpaf": "*",
     "@opam/httpaf-lwt": "*",
+    "@opam/httpaf-lwt-unix": "*",
     "@opam/h2": "*",
     "@opam/h2-lwt-unix": "*",
     "@opam/lwt_ssl": "*",
@@ -29,10 +30,13 @@
     "@opam/ocamlformat": "*"
   },
   "resolutions": {
-    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#96ec09d",
-    "@opam/httpaf": "inhabitedtype/httpaf:httpaf.opam#50e690f",
-    "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#293ac4d",
-    "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#293ac4d",
-    "@opam/conf-openssl": "esy-packages/esy-openssl#d1c35c5"
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#372c376",
+    "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#372c376",
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#372c376",
+    "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#ff37ed1",
+    "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#ff37ed1",
+    "@opam/conf-openssl": "esy-packages/esy-openssl#dafe9ad",
+    "@opam/ppx_deriving": "ocaml-ppx/ppx_deriving:ppx_deriving.opam#0d2399b",
+    "@opam/ppx_deriving_yojson": "anmonteiro/ppx_deriving_yojson:ppx_deriving_yojson.opam#4b7acfb"
   }
 }
