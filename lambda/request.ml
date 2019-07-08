@@ -74,7 +74,7 @@ let h2_request ssl_client fd ?body request_headers =
   Lwt.return (response_received, error_received)
 
 let http1_request ssl_client fd ?body request_headers =
-  let open Httpaf_lwt in
+  let open Httpaf_lwt_unix in
   let response_received, notify_response_received = Lwt.wait () in
   let response_handler response response_body =
     Lwt.wakeup_later
@@ -83,14 +83,13 @@ let http1_request ssl_client fd ?body request_headers =
   in
   let error_received, notify_error_received = Lwt.wait () in
   let error_handler = error_handler notify_error_received in
-  let request_body =
-    Client.SSL.request
-      ~client:ssl_client
-      fd
-      request_headers
-      ~error_handler
-      ~response_handler
-  in
+  Client.SSL.request
+    ~client:ssl_client
+    fd
+    request_headers
+    ~error_handler
+    ~response_handler
+  >>= fun request_body ->
   (match body with
   | Some body ->
     Httpaf.Body.write_string request_body body
