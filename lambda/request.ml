@@ -83,13 +83,10 @@ let http1_request ssl_client fd ?body request_headers =
   in
   let error_received, notify_error_received = Lwt.wait () in
   let error_handler = error_handler notify_error_received in
-  Client.SSL.request
-    ~client:ssl_client
-    fd
-    request_headers
-    ~error_handler
-    ~response_handler
-  >>= fun request_body ->
+  Client.SSL.create_connection ~client:ssl_client fd >>= fun conn ->
+  let request_body =
+    Client.SSL.request conn request_headers ~error_handler ~response_handler
+  in
   (match body with
   | Some body ->
     Httpaf.Body.write_string request_body body
