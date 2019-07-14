@@ -35,8 +35,6 @@
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#7c5d991",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#973a0ec",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#973a0ec",
-    "@opam/conf-openssl": "esy-packages/esy-openssl#dafe9ad",
-    "@opam/ppx_deriving": "ocaml-ppx/ppx_deriving:ppx_deriving.opam#0d2399b",
-    "@opam/ppx_deriving_yojson": "ocaml-ppx/ppx_deriving_yojson:ppx_deriving_yojson.opam#a39728f"
+    "@opam/conf-openssl": "esy-packages/esy-openssl#dafe9ad"
   }
 }
