@@ -142,18 +142,4 @@ let handler reqd _ctx =
   | None ->
     Lwt.return (send_error_response reqd usage)
 
-let test () =
-  Lwt_main.run
-    ( get_feed ~token:"AAFBTFPYE3GEMDLEALJIMT52ZDAPY" "anmonteiro" >|= fun r ->
-      match r with
-      | Ok feed ->
-        let feed = handle (`String (0, feed)) in
-        Format.eprintf
-          "%s"
-          (Feed.to_yojson feed |> Yojson.Safe.pretty_to_string)
-      | Error msg ->
-        failwith msg )
-
-(* let () = test () *)
-
 let () = Now.io_lambda handler
