@@ -30,11 +30,11 @@
     "@opam/ocamlformat": "*"
   },
   "resolutions": {
-    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#7c5d991",
-    "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#7c5d991",
-    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#7c5d991",
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#3a1103a",
+    "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#3a1103a",
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#3a1103a",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#973a0ec",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#973a0ec",
-    "@opam/conf-openssl": "esy-packages/esy-openssl#dafe9ad"
+    "@opam/conf-openssl": "esy-packages/esy-openssl#860ad7f"
   }
 }
