@@ -3,24 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aantron/repromise": "^0.6.0",
-    "@glennsl/bs-jest": "^0.4.8",
-    "@primer/css": "^12.2.3",
+    "@aantron/repromise": "^0.6.1",
+    "@glennsl/bs-jest": "^0.4.9",
+    "@primer/css": "^13.0.1",
     "bs-decoders": "^0.2.0",
     "bs-fetch": "^0.5.0",
-    "bs-platform": "6.0.3",
+    "bs-platform": "6.2.0",
     "cra-reason-template": "^0.1.3",
     "github-syntax-light": "^0.5.0",
     "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
-    "react": "^16.9.0-alpha.0",
+    "react": "^16.10.1",
     "react-cache": "file:vendor/react-cache",
-    "react-dom": "^16.9.0-alpha.0",
+    "react-dom": "^16.10.1",
     "reason-react": "^0.7.0"
-  },
-  "resolutions": {
-    "react": "^16.9.0-alpha.0",
-    "react-dom": "^16.9.0-alpha.0"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
