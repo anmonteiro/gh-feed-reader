@@ -19,7 +19,7 @@
     "@opam/ssl": ">= 0.5.8",
     "@opam/logs": "*",
     "@opam/fmt": "*",
-    "@opam/conf-openssl": "*",
+    "@opam/conf-libssl": "*",
     "@opam/uri": "*",
     "@opam/lambdasoup": "*",
     "@opam/ppx_deriving_yojson": "*",
@@ -35,14 +35,6 @@
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#3a1103a",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#973a0ec",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#973a0ec",
-    "@opam/conf-openssl": "esy-packages/esy-openssl#860ad7f",
-    "@opam/merlin": {
-      "source": "ocaml/merlin:merlin.opam#cfc28bd",
-      "override": {
-        "dependencies": {
-          "ocaml": "~4.9.0"
-        }
-      }
-    }
+    "@opam/conf-libssl": "esy-packages/esy-openssl#860ad7f"
   }
 }
