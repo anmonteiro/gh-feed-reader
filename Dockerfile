@@ -37,10 +37,10 @@ RUN echo ' \
   "dependencies": { \
     "ocaml": "~4.9.0", \
     "@opam/dune": "*", \
-    "@opam/conf-openssl": "*" \
+    "@opam/conf-libssl": "*" \
   }, \
   "resolutions": { \
-    "@opam/conf-openssl": "esy-packages/esy-openssl#860ad7f" \
+    "@opam/conf-libssl": "esy-packages/esy-openssl#860ad7f" \
   } \
 } \
 ' > esy.json
