@@ -21,21 +21,6 @@ let getFeed = (~token=?, ~page, user) => {
 };
 
 module ReactCache = {
-  /* : {
-       type resource('input, 'value);
-       type hash;
-
-       [@bs.module "react-cache"]
-       external createResource: ('i => Js.Promise.t('v)) => resource('i, 'v) =
-         "unstable_createResource";
-       let createResourceWithCustomHash:
-         ('i => Js.Promise.t('v), 'i => hash) => resource('i, 'v);
-
-       [@bs.send] external read: (resource('i, 'v), 'i) => 'v = "";
-
-       [@bs.send] external preload: (resource('i, 'v), 'i) => unit = "";
-     }  */
-
   type resource('input, 'value);
   type hash = [ | `String(string) | `Int(int)];
 

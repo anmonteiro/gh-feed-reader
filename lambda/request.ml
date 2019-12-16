@@ -43,14 +43,14 @@ let error_handler notify_response_received error =
       s
     | `Exn exn ->
       Printexc.to_string exn
-    | `Protocol_error ->
+    | `Protocol_error  _ ->
       "Protocol Error"
     | `Invalid_response_body_length _ ->
       Format.asprintf "invalid response body length"
   in
   Lwt.wakeup notify_response_received (Error error_str)
 
-let h2_request ssl_client fd ?body request_headers =
+let h2_request ssl_client ?body request_headers =
   let open H2_lwt_unix in
   let response_received, notify_response_received = Lwt.wait () in
   let response_handler response response_body =
@@ -60,7 +60,7 @@ let h2_request ssl_client fd ?body request_headers =
   in
   let error_received, notify_error_received = Lwt.wait () in
   let error_handler = error_handler notify_error_received in
-  Client.SSL.create_connection ~client:ssl_client ~error_handler fd
+  Client.SSL.create_connection ~error_handler ssl_client
   >>= fun conn ->
   let request_body =
     Client.SSL.request conn request_headers ~error_handler ~response_handler
@@ -73,7 +73,7 @@ let h2_request ssl_client fd ?body request_headers =
   H2.Body.flush request_body (fun () -> H2.Body.close_writer request_body);
   Lwt.return (response_received, error_received)
 
-let http1_request ssl_client fd ?body request_headers =
+let http1_request ssl_client ?body request_headers =
   let open Httpaf_lwt_unix in
   let response_received, notify_response_received = Lwt.wait () in
   let response_handler response response_body =
@@ -83,7 +83,7 @@ let http1_request ssl_client fd ?body request_headers =
   in
   let error_received, notify_error_received = Lwt.wait () in
   let error_handler = error_handler notify_error_received in
-  Client.SSL.create_connection ~client:ssl_client fd >>= fun conn ->
+  Client.SSL.create_connection ssl_client >>= fun conn ->
   let request_body =
     Client.SSL.request conn request_headers ~error_handler ~response_handler
   in
@@ -116,7 +116,7 @@ let send_request ~meth ~additional_headers ?body uri =
           ~headers:
             (Httpaf.Headers.of_list ([ "Host", host ] @ additional_headers))
       in
-      http1_request ssl_client fd ?body request_headers
+      http1_request ssl_client ?body request_headers
     | Some "h2" ->
       let request_headers =
         H2.Request.create
@@ -126,7 +126,7 @@ let send_request ~meth ~additional_headers ?body uri =
           ~headers:
             (H2.Headers.of_list ([ ":authority", host ] @ additional_headers))
       in
-      h2_request ssl_client fd ?body request_headers
+      h2_request ssl_client ?body request_headers
     | Some _ ->
       (* Can't really happen - would mean that TLS negotiated a
        * protocol that we didn't specify. *)
