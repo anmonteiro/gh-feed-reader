@@ -26,7 +26,7 @@
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "build": "yarn bs:clean && yarn bs:make && yarn build-cra && rm -rf public && mv build public"
+    "now-build": "yarn bs:clean && yarn bs:make && yarn build-cra"
   },
   "eslintConfig": {
     "extends": "react-app"
