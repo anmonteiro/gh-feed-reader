@@ -15,6 +15,7 @@
     "@opam/httpaf-lwt-unix": "*",
     "@opam/h2": "*",
     "@opam/h2-lwt-unix": "*",
+    "@opam/lwt": "*",
     "@opam/lwt_ssl": "*",
     "@opam/ssl": ">= 0.5.8",
     "@opam/logs": "*",
@@ -23,21 +24,31 @@
     "@opam/uri": "*",
     "@opam/lambdasoup": "*",
     "@opam/ppx_deriving_yojson": "*",
-    "@opam/syndic": "*"
+    "@opam/syndic": "*",
+    "@opam/piaf": "*"
   },
   "devDependencies": {
     "@opam/merlin": "*",
-    "@opam/ocamlformat": "*"
+    "@opam/ocamlformat": ">= 0.12"
   },
   "resolutions": {
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#90e7c87",
     "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#90e7c87",
     "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#90e7c87",
-    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#90e7c87",
+    "@opam/h2": "anmonteiro/ocaml-h2:h2.opam#bf0e0e0",
+    "@opam/h2-lwt": "anmonteiro/ocaml-h2:h2-lwt.opam#bf0e0e0",
+    "@opam/h2-lwt-unix": "anmonteiro/ocaml-h2:h2-lwt-unix.opam#bf0e0e0",
+    "@opam/conf-libssl": "esy-packages/esy-openssl#77c1dbe",
+    "@opam/ssl": "savonet/ocaml-ssl:ssl.opam#fbffa9b",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#973a0ec",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#973a0ec",
-    "@opam/conf-libssl": "esy-packages/esy-openssl#860ad7f",
-    "@opam/h2-lwt": "anmonteiro/ocaml-h2:h2-lwt.opam#2408119",
-    "@opam/h2-lwt-unix": "anmonteiro/ocaml-h2:h2-lwt-unix.opam#2408119",
-    "@opam/h2": "anmonteiro/ocaml-h2:h2.opam#2408119"
+    "@opam/piaf": {
+      "source": "anmonteiro/piaf:piaf.opam#d378272",
+      "override": {
+        "dependencies": {
+          "@opam/ocaml-syntax-shims": null
+        }
+      }
+    }
   }
 }
