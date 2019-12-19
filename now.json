@@ -8,7 +8,7 @@
   ],
   "builds": [
     {
-      "src": "bootstrap",
+      "src": "+(bootstrap|cacert.pem)",
       "use": "now-custom-runtime"
     },
     {

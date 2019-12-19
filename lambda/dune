@@ -1,7 +1,7 @@
 (executable
  (name lambda)
- (libraries lambda-runtime now h2-lwt-unix h2 lwt_ssl logs.fmt fmt.tty uri
-   syndic lambdasoup feed)
+ (libraries lambda-runtime now piaf lwt_ssl logs.fmt fmt.tty uri syndic
+   lambdasoup feed)
  (preprocess
   (pps ppx_deriving_yojson)))
 

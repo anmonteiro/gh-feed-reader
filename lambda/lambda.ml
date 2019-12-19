@@ -119,10 +119,13 @@ let get_feed ?page ?token user =
     | None ->
       feed_url
   in
-  Request.send
-    ~additional_headers:
-      [ "accept", "text/html,application/xhtml+xml,application/xml" ]
-    uri
+  Piaf.Client.Oneshot.get
+    ~config:{ Piaf.Config.default with cacert = Some "./cacert.pem" }
+    ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
+    (Uri.of_string uri)
+    >>= function
+      | Ok (_, body) -> Lwt_result.ok (Piaf.Body.to_string body)
+      | Error msg  -> Lwt_result.fail msg
 
 let handler reqd _ctx =
   let { Httpaf.Request.target; _ } = Now.Reqd.request reqd in
@@ -132,8 +135,7 @@ let handler reqd _ctx =
   let token = Uri.get_query_param uri "token" in
   match Uri.get_query_param uri "user" with
   | Some user ->
-    get_feed ?page ?token user >>= fun r ->
-    (match r with
+    get_feed ?page ?token user >>= (function
     | Ok feed ->
       let feed_json = handle (`String (0, feed)) |> Feed.to_yojson in
       Lwt.return (send_response reqd feed_json)
@@ -142,4 +144,9 @@ let handler reqd _ctx =
   | None ->
     Lwt.return (send_error_response reqd usage)
 
-let () = Now.io_lambda handler
+let () =
+  (* (try Lwt_engine.(set (new libev ~backend:Ev_backend.kqueue ())) with
+  | _ ->
+    Printf.eprintf "Failed setting KQueue libev backend. Falling back.\n%!";
+    Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ()))); *)
+  Now.io_lambda handler

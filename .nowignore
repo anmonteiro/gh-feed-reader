@@ -1,5 +1,6 @@
 /*
 !bootstrap
+!cacert.pem
 !package.json
 !src
 !shared
