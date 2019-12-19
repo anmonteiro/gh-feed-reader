@@ -6,54 +6,43 @@
     "sfo1",
     "bru1"
   ],
-  "builds": [
-    {
-      "src": "bootstrap",
-      "use": "now-custom-runtime"
+  "functions": {
+    "bootstrap": {
+      "runtime": "now-custom-runtime@0.0.4",
+      "includeFiles": "cacert.pem"
     },
-    {
-      "src": "package.json",
-      "use": "@now/static-build",
-      "config": {
-        "distDir": "build"
-      }
+    "package.json": {
+      "runtime": "@now/static-build@0.14.0"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api",
-      "dest": "/bootstrap",
-      "headers": {
-        "cache-control": "s-maxage=180",
-        "access-control-allow-origin": "*"
-      }
+      "source": "/api",
+      "destination": "bootstrap"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
     },
     {
-      "src": "/asset-manifest.json",
-      "dest": "/asset-manifest.json"
+      "source": "/asset-manifest.json",
+      "destination": "/asset-manifest.json"
     },
     {
-      "src": "/manifest.json",
-      "dest": "/manifest.json"
+      "source": "/manifest.json",
+      "destination": "/manifest.json"
     },
     {
-      "src": "/precache-manifest.(.*)",
-      "dest": "/precache-manifest.$1"
+      "source": "/precache-manifest.(.*)",
+      "destination": "/precache-manifest.$1"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1",
-      "headers": {
-        "cache-control": "s-maxage=31536000,immutable"
-      }
+      "source": "/static/(.*)",
+      "destination": "/static/$1"
     },
     {
-      "src": "/.*",
-      "dest": "/index.html"
+      "source": "/.*",
+      "destination": "/index.html"
     }
   ]
 }

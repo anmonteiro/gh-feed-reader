@@ -20,20 +20,20 @@
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
-    "build": "react-scripts build",
+    "build-cra": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "now-build": "yarn bs:clean && yarn bs:make && yarn build"
+    "build": "yarn bs:clean && yarn bs:make && yarn build-cra && rm -rf public && mv build public"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-b53ea6ca0",
-    "reason-react/**/react-dom": "0.0.0-experimental-b53ea6ca0"
+    "reason-react/**/react": "0.0.0-experimental-f42431abe",
+    "reason-react/**/react-dom": "0.0.0-experimental-f42431abe"
   },
   "browserslist": [
     ">0.2%",

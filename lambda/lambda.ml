@@ -119,8 +119,9 @@ let get_feed ?page ?token user =
     | None ->
       feed_url
   in
-  Piaf.Client.Oneshot.get ~headers:
-      [ "accept", "text/html,application/xhtml+xml,application/xml" ]
+  Piaf.Client.Oneshot.get
+    ~config:{ Piaf.Config.default with cacert = Some "./cacert.pem" }
+    ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
     >>= function
       | Ok (_, body) -> Lwt_result.ok (Piaf.Body.to_string body)
