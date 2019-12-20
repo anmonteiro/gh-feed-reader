@@ -25,6 +25,7 @@
     "@opam/lambdasoup": "*",
     "@opam/ppx_deriving_yojson": "*",
     "@opam/syndic": "*",
+    "@opam/conf-libev": "*",
     "@opam/piaf": "*"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@opam/ocamlformat": ">= 0.12"
   },
   "resolutions": {
+    "@opam/conf-libev": "esy-packages/libev:package.json#0b5eb66",
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#90e7c87",
     "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#90e7c87",
     "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#90e7c87",
