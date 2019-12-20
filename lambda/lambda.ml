@@ -157,12 +157,14 @@ let setup_log ?style_renderer level =
 
 let () =
   setup_log Logs.Debug;
-  (try
-     Logs.debug (fun m -> m "Trying to set KQueue backend for libev");
-     Lwt_engine.(set (new libev ~backend:Ev_backend.kqueue ()))
-   with
-  | _ ->
-    Logs.debug (fun m ->
-        m "Failed setting KQueue libev backend. Falling back to epoll.\n%!");
-    Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ())));
+  let () =
+    try
+      Logs.debug (fun m -> m "Trying to set KQueue backend for libev");
+      Lwt_engine.(set (new libev ~backend:Ev_backend.kqueue ()))
+    with
+    | _ ->
+      Logs.debug (fun m ->
+          m "Failed setting KQueue libev backend. Falling back to epoll.\n%!");
+      Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ()))
+  in
   Now.io_lambda handler
