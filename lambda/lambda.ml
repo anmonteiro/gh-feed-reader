@@ -120,12 +120,18 @@ let get_feed ?page ?token user =
       feed_url
   in
   Piaf.Client.Oneshot.get
-    ~config:{ Piaf.Config.default with cacert = Some "./cacert.pem" }
+    ~config:
+      { Piaf.Config.default with
+        follow_redirects = true
+      ; cacert = Some "./cacert.pem"
+      }
     ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
-    >>= function
-      | Ok (_, body) -> Lwt_result.ok (Piaf.Body.to_string body)
-      | Error msg  -> Lwt_result.fail msg
+  >>= function
+  | Ok (_, body) ->
+    Lwt_result.ok (Piaf.Body.to_string body)
+  | Error msg ->
+    Lwt_result.fail msg
 
 let handler reqd _ctx =
   let { Httpaf.Request.target; _ } = Now.Reqd.request reqd in
@@ -135,18 +141,24 @@ let handler reqd _ctx =
   let token = Uri.get_query_param uri "token" in
   match Uri.get_query_param uri "user" with
   | Some user ->
-    get_feed ?page ?token user >>= (function
+    get_feed ?page ?token user >>= ( function
     | Ok feed ->
       let feed_json = handle (`String (0, feed)) |> Feed.to_yojson in
       Lwt.return (send_response reqd feed_json)
     | Error msg ->
-      Lwt.return (send_error_response reqd msg))
+      Lwt.return (send_error_response reqd msg) )
   | None ->
     Lwt.return (send_error_response reqd usage)
 
+let setup_log ?style_renderer level =
+  Fmt_tty.setup_std_outputs ?style_renderer ();
+  Logs.set_level (Some level);
+  Logs.set_reporter (Logs_fmt.reporter ())
+
 let () =
-  (* (try Lwt_engine.(set (new libev ~backend:Ev_backend.kqueue ())) with
+  setup_log Logs.Debug;
+  (try Lwt_engine.(set (new libev ~backend:Ev_backend.kqueue ())) with
   | _ ->
     Printf.eprintf "Failed setting KQueue libev backend. Falling back.\n%!";
-    Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ()))); *)
+    Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ())));
   Now.io_lambda handler
