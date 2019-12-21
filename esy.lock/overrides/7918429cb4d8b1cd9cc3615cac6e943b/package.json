@@ -24,6 +24,11 @@
       [
         "make",
         "install"
+      ],
+      [
+        "bash",
+        "-c",
+        "mv cert.pem #{self.install / 'ssl'}"
       ]
     ],
     "buildsInSource": true,

@@ -40,7 +40,7 @@
     "@opam/h2": "anmonteiro/ocaml-h2:h2.opam#bf0e0e0",
     "@opam/h2-lwt": "anmonteiro/ocaml-h2:h2-lwt.opam#bf0e0e0",
     "@opam/h2-lwt-unix": "anmonteiro/ocaml-h2:h2-lwt-unix.opam#bf0e0e0",
-    "@opam/conf-libssl": "esy-packages/esy-openssl#77c1dbe",
+    "@opam/conf-libssl": "esy-packages/esy-openssl#648930f",
     "@opam/ssl": "savonet/ocaml-ssl:ssl.opam#fbffa9b",
     "@opam/lambda-runtime": "anmonteiro/aws-lambda-ocaml-runtime:lambda-runtime.opam#973a0ec",
     "@opam/now": "anmonteiro/aws-lambda-ocaml-runtime:now.opam#973a0ec",

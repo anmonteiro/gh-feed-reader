@@ -120,11 +120,7 @@ let get_feed ?page ?token user =
       feed_url
   in
   Piaf.Client.Oneshot.get
-    ~config:
-      { Piaf.Config.default with
-        follow_redirects = true
-      ; cacert = Some "./cacert.pem"
-      }
+    ~config:{ Piaf.Config.default with follow_redirects = true }
     ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
   >>= function
