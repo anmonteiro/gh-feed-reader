@@ -1,5 +1,3 @@
-[@bs.get] external js_error_message: Js.Promise.error => string = "message";
-
 let parseFeed = payload =>
   switch (Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload)) {
   | Ok(data) => Ok(data)
@@ -14,10 +12,11 @@ let getFeed = (~token=?, ~page, user) => {
     | Some(token) => {j|$(endpoint)&token=$(token)|j}
     };
   Request.request_json(endpoint)
-  |> Repromise.Rejectable.map(payload => parseFeed(payload))
-  |> Repromise.Rejectable.catch(error =>
-       Repromise.resolved(Error(js_error_message(error)))
-     );
+  ->Promise.map(
+      fun
+      | Ok(json) => parseFeed(json)
+      | Error(s) => Error(s),
+    );
 };
 
 module ReactCache = {
@@ -61,12 +60,12 @@ let feedResource =
   ReactCache.createResourceWithCustomHash(
     ({token, user, page}) =>
       getFeed(~token?, ~page, user)
-      |> Repromise.map(
-           fun
-           | Ok(feed) => Data(feed)
-           | Error(e) => Error(e),
-         )
-      |> Repromise.Rejectable.toJsPromise,
+      ->Promise.map(
+          fun
+          | Ok(feed) => Data(feed)
+          | Error(e) => Error(e),
+        )
+      ->Promise.Js.toBsPromise,
     ({token, user, page}) => {
       let hash = user ++ string_of_int(page);
       switch (token) {

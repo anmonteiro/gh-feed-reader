@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@aantron/repromise@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@aantron/repromise/-/repromise-0.6.1.tgz#5ad99cba57f5a4a88783b833ef2a3d2d9dfdba2f"
-  integrity sha512-dHWAWTlpPQCZcN9sCOzljOcMCD7ipQgLE1NOA3CszUxS3FKCl7muave235AX/waV5V6KqRFscg0iQVz2phZTNA==
-
 "@babel/code-frame@7.5.5", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.5.5.tgz#bc0782f6d69f7b7d49531219699b988f669a8f9d"
@@ -4089,7 +4084,7 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fast-deep-equal@^2.0.1:
+fast-deep-equal@2.0.1, fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
@@ -8503,6 +8498,11 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
+reason-promise@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/reason-promise/-/reason-promise-1.0.0.tgz#c2d5e50c090490553ce227e94d8ba50e51db5832"
+  integrity sha512-fZbSmdg8S6eQEq0NHlkiRGxEALga1ISGtPXBG62+DTC2SBBgjDGMNm84qqTlVjC8N9wAZVoFxYVrbt4agsMynQ==
+
 reason-react@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/reason-react/-/reason-react-0.7.0.tgz#46a975c321e81cd51310d7b1a02418ca7667b0d6"
@@ -9570,6 +9570,13 @@ svgo@^1.0.0, svgo@^1.2.2:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swr@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.1.16.tgz#e1667f2260ac091fb4c2cc6255ca1b8ff83b0acd"
+  integrity sha512-E+i0pJOCCPRxnwQMFKf3RYr4os+B4swNuwnHo+pBCNxwfuJiN0ZalwP9u4OqjoeMl9eZFgcQYUPHD8KVyTqM1g==
+  dependencies:
+    fast-deep-equal "2.0.1"
 
 symbol-tree@^3.2.2:
   version "3.2.4"
