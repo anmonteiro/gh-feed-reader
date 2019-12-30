@@ -28,3 +28,4 @@ _build
 _esy
 *.bs.js
 lib/
+.bsb.lock

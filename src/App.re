@@ -60,8 +60,8 @@ module Header = {
 module FeedPage = {
   [@react.component]
   let make = (~token=?, ~page, ~user, ~loadingRef) => {
-    let feedPage =
-      Api.ReactCache.read(Api.feedResource, {user, token, page});
+    let {Api.SWR.data, error: _error} =
+      Api.SWR.useSWR(Api.feedEndpoint(~token?, ~page, user));
 
     /* If this is executed, it means the data was successfully read from the
      * remote endpoint. We are done loading. */
@@ -71,8 +71,8 @@ module FeedPage = {
     });
 
     <section>
-      {switch (feedPage) {
-       | Data({Feed.entries}) =>
+      {switch (data) {
+       | Some(Ok({Feed.entries})) =>
          entries
          ->List.reduceWithIndexU(
              Array.makeUninitializedUnsafe(List.length(entries)),
@@ -86,7 +86,8 @@ module FeedPage = {
              },
            )
          ->React.array
-       | Error(_) => React.null
+       | Some(Error(_))
+       | None => React.null
        }}
     </section>;
   };
@@ -96,16 +97,17 @@ module GithubFeed = {
   [@react.component]
   let make = (~token=?, ~user, ~page, ~loadingRef) => {
     /* first page is always shown, and we need it to show the header */
-    let firstPage =
-      Api.ReactCache.read(Api.feedResource, {user, token, page: 1});
+    let {Api.SWR.data, error: _error} =
+      Api.SWR.useSWR(Api.feedEndpoint(~token?, ~page=1, user));
     let (link, title) =
-      switch (firstPage) {
-      | Data({Feed.links, title}) =>
+      switch (data) {
+      | Some(Ok({Feed.links, title})) =>
         switch (links) {
         | [link, ..._] => (Some(link), title)
         | _ => (None, title)
         }
-      | Error(msg) => (None, Format.asprintf("Error: %s", msg))
+      | Some(Error(msg)) => (None, Format.asprintf("Error: %s", msg))
+      | None => (None, "ERROR TODO" /* Format.asprintf("Error: %s", msg) */)
       };
 
     <>
@@ -159,9 +161,11 @@ let make = () => {
     (user, QueryParams.get(qp, "token"));
   };
 
-  <div>
-    <React.Suspense fallback={<Header title="Loading" />}>
-      <GithubFeed ?token page user loadingRef />
-    </React.Suspense>
-  </div>;
+  <Api.SWR.SWRConfig value={"fetcher": Api.fetcher, "suspense": true}>
+    <div>
+      <React.Suspense fallback={<Header title="Loading" />}>
+        <GithubFeed ?token page user loadingRef />
+      </React.Suspense>
+    </div>
+  </Api.SWR.SWRConfig>;
 };

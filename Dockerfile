@@ -7,7 +7,7 @@ RUN mkdir /esy
 WORKDIR /esy
 
 ENV NPM_CONFIG_PREFIX=/esy
-RUN npm install -g --unsafe-perm esy@latest
+RUN npm install -g --unsafe-perm @esy-nightly/esy
 
 # now that we have esy installed we need a proper runtime
 
@@ -36,7 +36,7 @@ RUN echo ' \
   "name": "package-base", \
   "dependencies": { \
     "ocaml": "~4.9.0", \
-    "@opam/dune": "*", \
+    "@opam/dune": ">= 2.0.0", \
     "@opam/conf-libssl": "*" \
   }, \
   "resolutions": { \

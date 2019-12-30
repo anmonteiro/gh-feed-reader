@@ -9,7 +9,7 @@
     "@glennsl/bs-jest",
     "bs-decoders",
     "bs-fetch",
-    "@aantron/repromise"
+    "reason-promise"
   ],
   "bsc-flags": [
     "-bs-super-errors"

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aantron/repromise": "^0.6.1",
     "@glennsl/bs-jest": "^0.4.9",
     "@primer/css": "^14.0.0",
     "bs-decoders": "^0.3.0",
@@ -14,9 +13,10 @@
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "react": "experimental",
-    "react-cache": "file:vendor/react-cache",
     "react-dom": "experimental",
-    "reason-react": "^0.7.0"
+    "reason-promise": "^1.0.0",
+    "reason-react": "^0.7.0",
+    "swr": "^0.1.16"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
@@ -48,6 +48,6 @@
     "pnp": false
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=10.0.0"
   }
 }
