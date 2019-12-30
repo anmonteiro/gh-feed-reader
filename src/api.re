@@ -12,11 +12,7 @@ let getFeed = (~token=?, ~page, user) => {
     | Some(token) => {j|$(endpoint)&token=$(token)|j}
     };
   Request.request_json(endpoint)
-  ->Promise.map(
-      fun
-      | Ok(json) => parseFeed(json)
-      | Error(s) => Error(s),
-    );
+  ->Promise.flatMapOk(x => Promise.resolved(parseFeed(x)));
 };
 
 module ReactCache = {
