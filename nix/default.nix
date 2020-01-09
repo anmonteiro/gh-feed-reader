@@ -11,11 +11,10 @@ let
   };
   inherit (import gitignoreSrc { inherit (pkgs) lib; }) gitignoreSource;
 
-  overlays = /home/anmonteiro/projects/nix-overlays;
-  # builtins.fetchTarball {
-    # url = https://github.com/anmonteiro/nix-overlays/archive/44b0ff7.tar.gz;
-    # sha256 = "18gzn7zzqag2lzwlvz28n30kibqgpy1vwsdy3jlnkbcf3xk5icjx";
-  # };
+  overlays = builtins.fetchTarball {
+    url = https://github.com/anmonteiro/nix-overlays/archive/9b82f4b.tar.gz;
+    sha256 = "1fsd3i1rz62vm2sgs3hw0srl7aiphckjc24qfc8l6p1czli2w0lw";
+  };
 
   ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_09.overrideScope'
     (pkgs.callPackage "${overlays}/ocaml" {});
