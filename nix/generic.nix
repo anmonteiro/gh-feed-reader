@@ -22,7 +22,6 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    ls -lah .
     echo "running ${if static then "static" else "release"} build"
     dune build lambda/lambda.exe --display=short --profile=${if static then "static" else "release"}
   '';
