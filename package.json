@@ -7,7 +7,6 @@
     "@primer/css": "^14.0.0",
     "bs-decoders": "^0.3.0",
     "bs-fetch": "^0.5.0",
-    "bs-platform": "7.0.2-dev.1",
     "cra-reason-template": "^0.1.3",
     "github-syntax-light": "^0.5.0",
     "node-sass": "^4.13.0",
@@ -26,7 +25,7 @@
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
     "bs:clean": "bsb -clean-world",
-    "now-build": "yarn bs:clean && yarn bs:make && yarn build-cra"
+    "now-build": "yarn add bs-platform@7.0.2-dev.1 && yarn bs:clean && yarn bs:make && yarn build-cra"
   },
   "eslintConfig": {
     "extends": "react-app"
