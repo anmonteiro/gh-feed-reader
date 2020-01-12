@@ -6,7 +6,7 @@ stdenv.mkDerivation {
 
   srcs = [ ../lambda ../shared ../dune-project ];
 
-  nativeBuildInputs = with ocamlPackages; [dune ocaml findlib];
+  nativeBuildInputs = with ocamlPackages; [dune_2 ocaml findlib];
 
   unpackPhase = ''
     for src in $srcs; do
@@ -30,10 +30,7 @@ stdenv.mkDerivation {
         mv _build/default/lambda/lambda.exe $out/bin/lambda.exe
   '';
 
-  propagatedBuildInputs =
-with ocamlPackages; [ppxfind];
   buildInputs = with ocamlPackages; [
-    findlib
     piaf
     lambdasoup
     ppx_deriving_yojson
