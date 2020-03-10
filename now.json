@@ -3,8 +3,7 @@
   "alias": "gh.an.wtf",
   "version": 2,
   "regions": [
-    "sfo1",
-    "bru1"
+    "sfo1"
   ],
   "builds": [
     {
