@@ -1,4 +1,4 @@
-{ pkgs, stdenv, ocamlPackages, gitignoreSource, static ? false }:
+{ pkgs, stdenv, ocamlPackages, static ? false }:
 
 stdenv.mkDerivation {
   name = "gh-feed-lambda";
