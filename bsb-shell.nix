@@ -1,18 +1,12 @@
 
 let
-  overlays = builtins.fetchTarball {
-    url = "https://github.com/anmonteiro/nix-overlays/archive/37b275a.tar.gz";
-    sha256 = "02vcx6kph9m526c63xk87w4m98vpsz28d0164ca828jc96klssfh";
-  };
-
-  pkgs = import <nixpkgs> { overlays = [ (import overlays) ]; };
+  pkgs = import ./nix/sources.nix {};
   ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_06;
 in
+  with pkgs;
 
-with pkgs;
-
-mkShell {
-    buildInputs = with ocamlPackages; [ bs-platform nodejs yarn merlin reason ];
+  mkShell {
+    buildInputs = with ocamlPackages; [ bs-platform nodejs yarn merlin reason python3 ocamlformat ];
 
     shellHook = ''
       yarn install
@@ -21,4 +15,5 @@ mkShell {
       ln -sfn ${bs-platform}/bin/* ./node_modules/.bin
       echo "bs-platform linked to $(pwd)/node_modules/bs-platform"
     '';
-}
+  }
+
