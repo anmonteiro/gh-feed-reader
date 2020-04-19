@@ -1,1 +1,6 @@
+(env
+ (release
+  (ocamlopt_flags
+   (:standard -O3 -unbox-closures))))
+
 (dirs :standard \ node_modules)
