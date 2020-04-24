@@ -31,8 +31,8 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-f42431abe",
-    "reason-react/**/react-dom": "0.0.0-experimental-f42431abe"
+    "reason-react/**/react": "0.0.0-experimental-e5d06e34b",
+    "reason-react/**/react-dom": "0.0.0-experimental-e5d06e34b"
   },
   "browserslist": [
     ">0.2%",
