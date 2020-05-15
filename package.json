@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@glennsl/bs-jest": "^0.4.9",
     "@primer/css": "^14.0.0",
     "bs-decoders": "^0.3.0",
     "bs-fetch": "^0.5.0",
@@ -14,8 +13,8 @@
     "react": "experimental",
     "react-dom": "experimental",
     "reason-promise": "^1.0.0",
-    "reason-react": "^0.7.0",
-    "swr": "^0.1.16"
+    "reason-react": "^0.8.0",
+    "swr": "^0.2.0"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
@@ -31,8 +30,8 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-e5d06e34b",
-    "reason-react/**/react-dom": "0.0.0-experimental-e5d06e34b"
+    "reason-react/**/react": "0.0.0-experimental-33c3af284",
+    "reason-react/**/react-dom": "0.0.0-experimental-33c3af284"
   },
   "browserslist": [
     ">0.2%",

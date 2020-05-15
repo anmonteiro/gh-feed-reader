@@ -66,7 +66,7 @@ module FeedPage = {
     /* If this is executed, it means the data was successfully read from the
      * remote endpoint. We are done loading. */
     React.useEffect0(() => {
-      React.Ref.setCurrent(loadingRef, false);
+      loadingRef.React.current = false;
       None;
     });
 
@@ -136,13 +136,13 @@ let make = () => {
 
   React.useEffect3(
     () => {
-      let loading = React.Ref.current(loadingRef);
+      let loading = loadingRef.current;
       if (!loading) {
         let totalHeight = window##innerHeight + y;
         let offsetHeight = documentElement##offsetHeight;
         /* allow a 20px epsilon */
         if (totalHeight === offsetHeight) {
-          React.Ref.setCurrent(loadingRef, true);
+          loadingRef.current = true;
           setPage(prev => prev + 1);
         };
       };

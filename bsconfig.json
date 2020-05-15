@@ -6,7 +6,6 @@
   ],
   "bs-dependencies": [
     "reason-react",
-    "@glennsl/bs-jest",
     "bs-decoders",
     "bs-fetch",
     "reason-promise"
