@@ -128,9 +128,8 @@ let get_feed ?page ?token user =
     ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
   >>= function
-  | Ok response ->
-    let body = Piaf.Response.body response in
-    Lwt_result.ok (Piaf.Body.to_string body)
+  | Ok { Piaf.Response.body; _ } ->
+    Piaf.Body.to_string body
   | Error msg ->
     Lwt_result.fail msg
 
@@ -146,7 +145,8 @@ let handler reqd _ctx =
     | Ok feed ->
       let feed_json = handle (`String (0, feed)) |> Feed.to_yojson in
       Lwt.return (send_response reqd feed_json)
-    | Error msg ->
+    | Error e ->
+      let msg = Piaf.Error.to_string e in
       Lwt.return (send_error_response reqd msg) )
   | None ->
     Lwt.return (send_error_response reqd usage)

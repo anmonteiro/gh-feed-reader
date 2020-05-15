@@ -1,7 +1,6 @@
-{ ocamlVersion ? "4_10" }:
+{ ocamlVersion ? "4_10", sources ? import ./sources.nix { inherit ocamlVersion; } }:
 
 let
-  sources = import ./sources.nix { inherit ocamlVersion; };
   inherit (sources) pkgs overlays;
   inherit (pkgs) lib callPackage;
 in

@@ -1,6 +1,7 @@
 
 let
-  pkgs = import ./nix/sources.nix {};
+  sources = (import ./nix/sources.nix {});
+  pkgs = sources.pkgs;
   ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_06;
 in
   with pkgs;
