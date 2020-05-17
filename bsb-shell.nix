@@ -7,7 +7,18 @@ in
   with pkgs;
 
   mkShell {
-    buildInputs = with ocamlPackages; [ bs-platform nodejs yarn merlin reason python3 ocamlformat ];
+    buildInputs = with ocamlPackages; [
+      which
+      bs-platform
+      nodejs
+      yarn
+      merlin
+      reason
+      python3
+      ocamlformat
+    ];
+
+    BSB_PATH="${bs-platform}";
 
     shellHook = ''
       yarn install
