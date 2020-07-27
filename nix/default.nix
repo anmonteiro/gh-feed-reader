@@ -15,6 +15,7 @@ in
       in
       pkgs.callPackage ./generic.nix {
         static = true;
+        gitignoreSource = sources.pkgs.lib.gitignoreSource;
         ocamlPackages = pkgs.ocaml-ng."ocamlPackages_${ocamlVersion}";
       };
   }
