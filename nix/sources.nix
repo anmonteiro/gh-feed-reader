@@ -3,19 +3,10 @@
 let
   overlays =
     builtins.fetchTarball
-      https://github.com/anmonteiro/nix-overlays/archive/99aecac.tar.gz;
+      https://github.com/anmonteiro/nix-overlays/archive/1b1efc9.tar.gz;
 
-in
+in {
+  inherit overlays;
+  pkgs = import "${overlays}/sources.nix" {};
+}
 
-  {
-    inherit overlays;
-    pkgs = import "${overlays}/sources.nix" {
-      overlays = [
-        (import overlays)
-        (self: super: {
-          ocamlPackages = super.ocaml-ng."ocamlPackages_${ocamlVersion}".overrideScope'
-              (super.callPackage "${overlays}/ocaml" {});
-        })
-      ];
-    };
-  }

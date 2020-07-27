@@ -8,4 +8,6 @@
 (env
  (static
   (flags
-   (:standard -ccopt -static))))
+   (:standard -ccopt -static))
+  (ocamlopt_flags
+   (:standard -O3 -unbox-closures))))

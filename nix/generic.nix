@@ -1,4 +1,4 @@
-{ pkgs, stdenv, ocamlPackages, static ? false }:
+{ gitignoreSource, stdenv, openssl, ocamlPackages, static ? false }:
 
 stdenv.mkDerivation {
   name = "gh-feed-lambda";
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
     dune build lambda/lambda.exe --display=short --profile=${if static then "static" else "release"}
   '';
   installPhase = ''
-        mkdir -p $out/bin
-        mv _build/default/lambda/lambda.exe $out/bin/lambda.exe
+    mkdir -p $out/bin
+    mv _build/default/lambda/lambda.exe $out/bin/lambda.exe
   '';
 
   buildInputs = with ocamlPackages; [
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     lambdasoup
     ppx_deriving_yojson
     syndic
-    lwt4
+    lwt
     fmt
     now
   ];
