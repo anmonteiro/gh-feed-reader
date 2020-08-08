@@ -14,7 +14,7 @@
     "react-dom": "experimental",
     "reason-promise": "^1.0.0",
     "reason-react": "^0.9.1",
-    "swr": "^0.2.0"
+    "swr": "^0.3.0"
   },
   "scripts": {
     "start": "FORCE_COLOR=true react-scripts start | cat -n",
@@ -31,10 +31,10 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-4c8c98ab9",
-    "reason-react/**/react-dom": "0.0.0-experimental-4c8c98ab9",
-    "react": "0.0.0-experimental-4c8c98ab9",
-    "react-dom": "0.0.0-experimental-4c8c98ab9"
+    "reason-react/**/react": "0.0.0-experimental-f77c7b9d7",
+    "reason-react/**/react-dom": "0.0.0-experimental-f77c7b9d7",
+    "react": "0.0.0-experimental-f77c7b9d7",
+    "react-dom": "0.0.0-experimental-f77c7b9d7"
   },
   "browserslist": [
     ">0.2%",

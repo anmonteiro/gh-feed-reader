@@ -1,11 +1,13 @@
-{ ocamlVersion ? "4_10", sources ? import ./sources.nix { inherit ocamlVersion; } }:
+{ ocamlVersion ? "4_11", sources ? import ./sources.nix { inherit ocamlVersion; } }:
 
 let
   inherit (sources) pkgs overlays;
   inherit (pkgs) lib callPackage;
 in
   {
-    native = callPackage ./generic.nix {};
+    native = callPackage ./generic.nix {
+      inherit (lib) filterGitSource;
+    };
 
     musl64 =
       let pkgs = (import "${overlays}/static" {
@@ -15,7 +17,7 @@ in
       in
       pkgs.callPackage ./generic.nix {
         static = true;
-        gitignoreSource = sources.pkgs.lib.gitignoreSource;
+        inherit (lib) filterGitSource;
         ocamlPackages = pkgs.ocaml-ng."ocamlPackages_${ocamlVersion}";
       };
   }
