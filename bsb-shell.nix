@@ -2,13 +2,16 @@
 let
   sources = (import ./nix/sources.nix {});
   pkgs = sources.pkgs;
-  ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_06;
+  ocamlPackages = pkgs.ocamlPackages-bs;
 in
   with pkgs;
 
   mkShell {
     buildInputs = with ocamlPackages; [
-      bs-platform
+      bucklescript-experimental
+      ocamlPackages.dune_2
+      ocamlPackages-bs.ocaml
+
       nodejs
       yarn
       merlin
@@ -17,6 +20,6 @@ in
       ocamlformat
     ];
 
-    BSB_PATH="${bs-platform}";
+    BSB_PATH="${bucklescript-experimental}";
   }
 

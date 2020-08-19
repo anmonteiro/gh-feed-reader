@@ -21,9 +21,9 @@
     "build-cra": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "bs:make": "bsb -make-world",
-    "bs:watch": "bsb -make-world -w",
-    "bs:clean": "bsb -clean-world",
+    "bs:make": "bsb.exe -make-world",
+    "bs:watch": "bsb.exe -make-world -w",
+    "bs:clean": "bsb.exe -clean-world",
     "now-build": "yarn add bs-platform@7.3.1 && yarn bs:clean && yarn bs:make && yarn build-cra",
     "postinstall": "ln -sfn $BSB_PATH node_modules/bs-platform && ln -sfn $BSB_PATH/bin/* ./node_modules/.bin"
   },
@@ -31,10 +31,10 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-f77c7b9d7",
-    "reason-react/**/react-dom": "0.0.0-experimental-f77c7b9d7",
-    "react": "0.0.0-experimental-f77c7b9d7",
-    "react-dom": "0.0.0-experimental-f77c7b9d7"
+    "reason-react/**/react": "0.0.0-experimental-94c0244ba",
+    "reason-react/**/react-dom": "0.0.0-experimental-94c0244ba",
+    "react": "0.0.0-experimental-94c0244ba",
+    "react-dom": "0.0.0-experimental-94c0244ba"
   },
   "browserslist": [
     ">0.2%",
