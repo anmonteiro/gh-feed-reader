@@ -9,8 +9,9 @@ in
   mkShell {
     buildInputs = with ocamlPackages; [
       bucklescript-experimental
-      ocamlPackages.dune_2
-      ocamlPackages-bs.ocaml
+      dune_2
+      ocaml
+      ocaml-syntax-shims
 
       nodejs
       yarn

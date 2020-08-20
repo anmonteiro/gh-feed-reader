@@ -10,9 +10,6 @@
     "bs-fetch",
     "reason-promise"
   ],
-  "bsc-flags": [
-    "-bs-super-errors"
-  ],
   "warnings": {
     "error": "+A",
     "number": "-44"
@@ -25,5 +22,6 @@
     "module": "es6",
     "in-source": true
   },
+  "pp-flags": "ocaml-syntax-shims",
   "suffix": ".bs.js"
 }

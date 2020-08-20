@@ -1,3 +1,5 @@
+open Let_syntax.Bindings;
+
 let parseFeed = payload =>
   switch (Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload)) {
   | Ok(data) => Ok(data)
@@ -12,9 +14,10 @@ let feedEndpoint = (~token=?, ~page, user) => {
   };
 };
 
-let fetcher = endpoint =>
-  Request.request_json(endpoint)
-  ->Promise.flatMapOk(x => Promise.resolved(parseFeed(x)));
+let fetcher = endpoint => {
+  let++! response = Request.request_json(endpoint);
+  parseFeed(response);
+};
 
 module SWR = {
   module SWRConfig = {
