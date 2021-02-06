@@ -1,12 +1,11 @@
 { ocamlVersion ? "4_11" }:
-
 let
   overlays =
     builtins.fetchTarball
-      https://github.com/anmonteiro/nix-overlays/archive/f8aa307.tar.gz;
+      https://github.com/anmonteiro/nix-overlays/archive/8c8edf2.tar.gz;
 
-in {
+in
+{
   inherit overlays;
-  pkgs = import "${overlays}/sources.nix" {};
+  pkgs = import "${overlays}/sources.nix" { };
 }
-

@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     files = [ "dune-project" ];
   };
 
-  nativeBuildInputs = with ocamlPackages; [dune_2 ocaml findlib];
+  nativeBuildInputs = with ocamlPackages; [ dune_2 ocaml findlib ];
 
   buildPhase = ''
     echo "running ${if static then "static" else "release"} build"
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     syndic
     lwt
     fmt
-    now
+    vercel
   ];
 
   doCheck = false;
