@@ -1,9 +1,6 @@
 {
   "name": "reason-scripts",
-  "sources": [
-    "src",
-    "shared"
-  ],
+  "sources": ["src", "shared"],
   "bs-dependencies": [
     "reason-react",
     "bs-decoders",
@@ -22,6 +19,5 @@
     "module": "es6",
     "in-source": true
   },
-  "pp-flags": "ocaml-syntax-shims",
   "suffix": ".bs.js"
 }
