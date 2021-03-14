@@ -1,5 +1,3 @@
-open Let_syntax.Bindings;
-
 let parseFeed = payload =>
   switch (Decoders_bs.Decode.decode_value(Decode_feed.decode_feed, payload)) {
   | Ok(data) => Ok(data)
@@ -15,8 +13,8 @@ let feedEndpoint = (~token=?, ~page, user) => {
 };
 
 let fetcher = endpoint => {
-  let++! response = Request.request_json(endpoint);
-  parseFeed(response);
+  let p_result = Request.request_json(endpoint);
+  Promise.map(p_result, r => Belt.Result.flatMap(r, parseFeed));
 };
 
 module SWR = {
