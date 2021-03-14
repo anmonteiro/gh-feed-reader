@@ -3,4 +3,4 @@
   (ocamlopt_flags
    (:standard -O3 -unbox-closures))))
 
-(dirs :standard \ node_modules)
+;;;;{BSB GENERATED: NO EDIT;;;;BSB GENERATED: NO EDIT}

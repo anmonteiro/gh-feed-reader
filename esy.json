@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "bs-platform": "*",
+    "@opam/merlin": "*"
+  },
+  "resolutions": {
+    "bs-platform": "EduardoRFS/bucklescript#97d478aa2f72ac92b776dfc9a50f316f6a46eefa",
+    "ocaml": "anmonteiro/ocaml#72babec0e1796ce322464afc8ef2a0d7125d60cb"
+  },
+  "esy": {
+    "buildsInSource": "_build",
+    "build": [
+      "ln -sfn #{bs-platform.install} node_modules/bs-platform",
+      "sh -c \"echo '(lang dune 2.7)' > node_modules/bs-decoders/dune-project\"",
+      "bsb -clean-world -make-world"
+    ]
+  },
+  "installConfig": {
+    "pnp": false
+  }
+}

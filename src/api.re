@@ -12,9 +12,10 @@ let feedEndpoint = (~token=?, ~page, user) => {
   };
 };
 
-let fetcher = endpoint =>
-  Request.request_json(endpoint)
-  ->Promise.flatMapOk(x => Promise.resolved(parseFeed(x)));
+let fetcher = endpoint => {
+  let p_result = Request.request_json(endpoint);
+  Promise.map(p_result, r => Belt.Result.flatMap(r, parseFeed));
+};
 
 module SWR = {
   module SWRConfig = {
