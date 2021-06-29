@@ -28,7 +28,6 @@ stdenv.mkDerivation {
     syndic
     lwt
     fmt
-    now
   ];
 
   doCheck = false;
