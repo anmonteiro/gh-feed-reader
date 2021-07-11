@@ -1,4 +1,3 @@
-
 let
   sources = (import ./nix/sources.nix {});
   pkgs = sources.pkgs;
@@ -15,8 +14,12 @@ in
       reason
       python3
       ocamlformat
-    ];
+    ] ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Cocoa
+        CoreServices
+      ]
+    );
 
-    BSB_PATH="${bs-platform}";
+    BSB_PATH = "${bs-platform}";
   }
-
