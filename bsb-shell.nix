@@ -1,13 +1,15 @@
 let
   sources = (import ./nix/sources.nix {});
   pkgs = sources.pkgs;
-  ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_06;
+  ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
 in
   with pkgs;
 
   mkShell {
     buildInputs = with ocamlPackages; [
-      bs-platform
+      #bs-platform
+      melange
+      dune
       nodejs
       yarn
       merlin
@@ -21,5 +23,5 @@ in
       ]
     );
 
-    BSB_PATH = "${bs-platform}";
+    BSB_PATH = "${ocamlPackages.melange}";
   }
