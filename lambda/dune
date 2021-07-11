@@ -1,6 +1,6 @@
 (executable
  (name lambda)
- (libraries lambda-runtime now piaf lwt_ssl logs.fmt fmt.tty uri syndic
+ (libraries lambda-runtime vercel piaf lwt_ssl logs.fmt fmt.tty uri syndic
    lambdasoup feed)
  (preprocess
   (pps ppx_deriving_yojson)))

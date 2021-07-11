@@ -3,10 +3,10 @@
 let
   overlays =
     builtins.fetchTarball
-      https://github.com/anmonteiro/nix-overlays/archive/5d6c844.tar.gz;
+      https://github.com/anmonteiro/nix-overlays/archive/d3b6cdf.tar.gz;
 
-in {
+in
+{
   inherit overlays;
   pkgs = import "${overlays}/sources.nix" {};
 }
-
