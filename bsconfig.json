@@ -1,20 +1,15 @@
 {
   "name": "reason-scripts",
-  "sources": [
-    "src",
-    "shared"
-  ],
+  "sources": ["src", "shared"],
   "bs-dependencies": [
     "reason-react",
     "bs-decoders",
     "bs-fetch",
     "reason-promise"
   ],
-  "bsc-flags": [
-    "-bs-super-errors"
-  ],
+  "bsc-flags": ["-bs-super-errors"],
   "warnings": {
-    "error": "+A",
+    "error": "+A-101",
     "number": "-44"
   },
   "refmt": 3,
