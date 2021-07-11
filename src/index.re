@@ -9,7 +9,7 @@ module ReactDOM = {
   type root;
 
   [@bs.module "react-dom"]
-  external createRoot: Dom.element => root = "createRoot";
+  external createRoot: Dom.element => root = "unstable_createRoot";
 
   [@bs.send] external render: (root, React.element) => unit = "render";
 
