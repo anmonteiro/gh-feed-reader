@@ -1,11 +1,13 @@
-let
-  sources = (import ./nix/sources.nix {});
-  pkgs = sources.pkgs;
-  inherit (pkgs) lib;
-in
-  with pkgs;
+{ pkgs }:
 
-  mkShell {
-    inputsFrom = [ (import ./nix { inherit sources; }).native ];
-    buildInputs = with ocamlPackages; [ merlin ocamlformat utop ];
-  }
+let
+  inherit (pkgs) lib mkShell ocaml-ng;
+  ocamlPackages = ocaml-ng.ocamlPackages_4_12;
+
+in
+
+mkShell {
+  OCAMLRUNPARAM = "b";
+  buildInputs = (with ocamlPackages; [ ocaml findlib easy-format dune cmdliner utop ]);
+  # utop
+}

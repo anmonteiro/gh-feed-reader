@@ -4,16 +4,14 @@
   "private": true,
   "dependencies": {
     "@primer/css": "^15.0.0",
+    "@rescript/react": "^0.10.3",
     "bs-decoders": "^0.3.0",
     "bs-fetch": "^0.6.2",
     "cra-reason-template": "^0.1.3",
     "github-syntax-light": "^0.5.0",
-    "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "react": "experimental",
-    "react-dom": "experimental",
     "reason-promise": "^1.0.0",
-    "reason-react": "^0.9.1",
     "swr": "^0.3.0"
   },
   "scripts": {
@@ -24,8 +22,7 @@
     "bs:make": "bsb.exe -make-world",
     "bs:watch": "bsb.exe -make-world -w",
     "bs:clean": "bsb.exe -clean-world",
-    "now-build": "yarn add bs-platform@7.3.1 && yarn bs:clean && yarn bs:make && yarn build-cra",
-    "postinstall": "esy"
+    "now-build": "yarn add bs-platform@7.3.1 && yarn bs:clean && yarn bs:make && yarn build-cra"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,8 +30,8 @@
   "resolutions": {
     "reason-react/**/react": "0.0.0-experimental-94c0244ba",
     "reason-react/**/react-dom": "0.0.0-experimental-94c0244ba",
-    "react": "0.0.0-experimental-94c0244ba",
-    "react-dom": "0.0.0-experimental-94c0244ba"
+    "react": "0.0.0-experimental-79ed5e18f-20220217",
+    "react-dom": "0.0.0-experimental-79ed5e18f-20220217"
   },
   "browserslist": [
     ">0.2%",

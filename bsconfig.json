@@ -1,8 +1,11 @@
 {
   "name": "reason-scripts",
-  "sources": ["src", "shared"],
+  "sources": [
+    "src",
+    "shared"
+  ],
   "bs-dependencies": [
-    "reason-react",
+    "@rescript/react",
     "bs-decoders",
     "bs-fetch",
     "reason-promise"
