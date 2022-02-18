@@ -9,8 +9,9 @@
       let
         pkgs = nixpkgs.legacyPackages."${system}";
       in
-      {
+      rec {
+        packages = pkgs.callPackage ./nix { inherit pkgs; };
+        defaultPackage = packages.native;
         devShell = import ./shell.nix { inherit pkgs; };
-        devShells.melange = import ./bsb-shell.nix { inherit pkgs; };
       });
 }

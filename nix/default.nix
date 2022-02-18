@@ -1,23 +1,19 @@
-{ ocamlVersion ? "4_11", sources ? import ./sources.nix { inherit ocamlVersion; } }:
+{ pkgs }:
 
 let
-  inherit (sources) pkgs overlays;
-  inherit (pkgs) lib callPackage;
+  inherit (pkgs) lib callPackage pkgsCross;
 in
-  {
-    native = callPackage ./generic.nix {
-      inherit (lib) filterGitSource;
-    };
+{
+  native = callPackage ./generic.nix {
+    inherit (lib) filterGitSource;
+  };
 
-    musl64 =
-      let pkgs = (import "${overlays}/static" {
-        inherit ocamlVersion;
-        pkgsPath = "${overlays}/sources.nix";
-      });
-      in
-      pkgs.callPackage ./generic.nix {
-        static = true;
-        inherit (lib) filterGitSource;
-        ocamlPackages = pkgs.ocaml-ng."ocamlPackages_${ocamlVersion}";
-      };
-  }
+  musl64 =
+    let pkgs = pkgsCross.musl64;
+    in
+    pkgs.callPackage ./generic.nix {
+      static = true;
+      inherit (lib) filterGitSource;
+      ocamlPackages = pkgs.ocamlPackages;
+    };
+}

@@ -1,13 +1,26 @@
 { pkgs }:
 
-let
-  inherit (pkgs) lib mkShell ocaml-ng;
-  ocamlPackages = ocaml-ng.ocamlPackages_4_12;
-
-in
+with pkgs;
 
 mkShell {
-  OCAMLRUNPARAM = "b";
-  buildInputs = (with ocamlPackages; [ ocaml findlib easy-format dune cmdliner utop ]);
-  # utop
+  buildInputs = with ocamlPackages; [
+    nodejs_latest
+    yarn
+    merlin
+    melange
+    reason
+    python3
+    # ocamlformat
+    dune
+    ocaml
+    findlib
+    merlin
+  ];
+
+  inputsFrom = [ (pkgs.callPackage ./nix { }).native ];
+
+  BSB_PATH = "/Users/anmonteiro/projects/melange";
+  shellHook = ''
+    PATH=$BSB_PATH/bin:$PATH
+  '';
 }

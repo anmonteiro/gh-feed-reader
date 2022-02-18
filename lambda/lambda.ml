@@ -127,7 +127,7 @@ let get_feed ?page ?token user =
     ~config:
       { Piaf.Config.default with
         follow_redirects = true
-      ; cacert = Some "./cacert.pem"
+      ; cacert = Some (Piaf.Cert.Filepath "./cacert.pem")
       }
     ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
