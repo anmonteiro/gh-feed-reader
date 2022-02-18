@@ -2,24 +2,28 @@ open Util
 open Syndic
 open Lwt.Infix
 
-let send_response reqd body =
-  let open Now in
+let send_response body =
+  let open Vercel in
+  let body = Yojson.Safe.to_string body in
   let response =
-    Response.create
+    Response.of_string
       ~headers:(Headers.of_list [ "content-type", "application/json" ])
+      ~body
       `OK
   in
-  Reqd.respond_with_string reqd response (Yojson.Safe.to_string body)
+  Ok response
 
-let send_error_response reqd msg =
-  let open Now in
+let send_error_response msg =
+  let open Vercel in
   let payload = `Assoc [ "error", `String msg ] in
+  let body = Yojson.Safe.to_string payload in
   let response =
-    Response.create
+    Response.of_string
       ~headers:(Headers.of_list [ "content-type", "application/json" ])
+      ~body
       `Bad_request
   in
-  Reqd.respond_with_string reqd response (Yojson.Safe.to_string payload)
+  Ok response
 
 let replace_hrefs xml_base html_string =
   let tree = Soup.parse html_string in
@@ -123,7 +127,7 @@ let get_feed ?page ?token user =
     ~config:
       { Piaf.Config.default with
         follow_redirects = true
-      ; cacert = Some "./cacert.pem"
+      ; cacert = Some (Piaf.Cert.Filepath "./cacert.pem")
       }
     ~headers:[ "accept", "text/html,application/xhtml+xml,application/xml" ]
     (Uri.of_string uri)
@@ -134,7 +138,7 @@ let get_feed ?page ?token user =
     Lwt_result.fail msg
 
 let handler reqd _ctx =
-  let { Httpaf.Request.target; _ } = Now.Reqd.request reqd in
+  let { Piaf.Request.target; _ } = reqd in
   let usage = "Usage:\n gh-feed.anmonteiro.now.sh/?user=username&page=N" in
   let uri = Uri.of_string target in
   let page = Uri.get_query_param uri "page" in
@@ -144,12 +148,12 @@ let handler reqd _ctx =
     get_feed ?page ?token user >>= ( function
     | Ok feed ->
       let feed_json = handle (`String (0, feed)) |> Feed.to_yojson in
-      Lwt.return (send_response reqd feed_json)
+      Lwt.return (send_response feed_json)
     | Error e ->
       let msg = Piaf.Error.to_string e in
-      Lwt.return (send_error_response reqd msg) )
+      Lwt.return (send_error_response msg) )
   | None ->
-    Lwt.return (send_error_response reqd usage)
+    Lwt.return (send_error_response usage)
 
 let setup_log ?style_renderer level =
   Fmt_tty.setup_std_outputs ?style_renderer ();
@@ -168,4 +172,4 @@ let () =
           m "Failed setting KQueue libev backend. Falling back to epoll.\n%!");
       Lwt_engine.(set (new libev ~backend:Ev_backend.epoll ()))
   in
-  Now.io_lambda handler
+  Vercel.io_lambda handler

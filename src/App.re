@@ -129,7 +129,7 @@ module GithubFeed = {
 [@react.component]
 let make = () => {
   open Utils;
-  let {ReasonReactRouter.search, path} = ReasonReactRouter.useUrl();
+  let {RescriptReactRouter.search, path} = RescriptReactRouter.useUrl();
   let (page, setPage) = React.useState(() => 1);
   let {Scroll.y, _} = Scroll.useScroll();
   let loadingRef = React.useRef(false);

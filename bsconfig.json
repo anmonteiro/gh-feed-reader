@@ -5,17 +5,14 @@
     "shared"
   ],
   "bs-dependencies": [
-    "reason-react",
+    "@rescript/react",
     "bs-decoders",
     "bs-fetch",
     "reason-promise"
   ],
-  "bsc-flags": [
-    "-bs-super-errors"
-  ],
   "warnings": {
     "error": "+A",
-    "number": "-44"
+    "number": "-44-101"
   },
   "refmt": 3,
   "reason": {
