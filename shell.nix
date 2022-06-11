@@ -14,7 +14,8 @@ mkShell {
     dune
     ocaml
     findlib
-    merlin
+    dot-merlin-reader
+    # merlin
   ];
 
   inputsFrom = [ (pkgs.callPackage ./nix { }).native ];
