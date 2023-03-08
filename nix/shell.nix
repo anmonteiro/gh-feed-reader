@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, packages }:
 
 with pkgs;
 
@@ -7,10 +7,10 @@ mkShell {
     nodejs_latest
     yarn
     merlin
-    melange
+    # melange
     reason
     python3
-    # ocamlformat
+    ocamlformat
     dune
     ocaml
     findlib
@@ -18,7 +18,7 @@ mkShell {
     # merlin
   ];
 
-  inputsFrom = [ (pkgs.callPackage ./nix { }).native ];
+  inputsFrom = [ packages.native ];
 
   BSB_PATH = "/Users/anmonteiro/projects/melange";
   shellHook = ''

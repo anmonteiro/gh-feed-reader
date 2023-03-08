@@ -1,4 +1,9 @@
 (library
  (name feed)
- (preprocess
-  (pps ppx_deriving_yojson)))
+ (modes :standard melange)
+ (virtual_modules feed)
+ (melange.compile_flags :standard -w -101 -nopervasives)
+ (modules feed))
+
+; (preprocess
+; (pps ppx_deriving_yojson))

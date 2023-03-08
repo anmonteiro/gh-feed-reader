@@ -1,19 +1,50 @@
 {
   description = "Piaf Nix Flake";
 
+  inputs.nix-filter.url = "github:numtide/nix-filter";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.nixpkgs.url = "github:anmonteiro/nix-overlays";
+  inputs.melange.url = "github:melange-re/melange?rev=7bd2b36cd21a4edcd369964ebc50d95d8769e218";
+  inputs.melange.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, nix-filter, melange }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system}.extend (self: super: {
-          ocamlPackages = super.ocaml-ng.ocamlPackages_4_14;
+          ocamlPackages = super.ocaml-ng.ocamlPackages_5_0.overrideScope' (oself: osuper: {
+            piaf = osuper.piaf.overrideAttrs (_: {
+              src = super.fetchFromGitHub {
+                owner = "anmonteiro";
+                repo = "piaf";
+                rev = "e741d9f6f90968bc72661583bfb49a7712442634";
+                sha256 = "sha256-cmhlUnzz8IvF9VS4DOXTXIbua7Wz0fAIdJAFWICXRQY=";
+              };
+            });
+          });
         });
       in
+
       rec {
-        packages = pkgs.callPackage ./nix { inherit pkgs; };
+        packages = {
+          native = pkgs.callPackage ./nix {
+            nix-filter = nix-filter.lib;
+          };
+
+          musl64 =
+            let pkgs = pkgs.pkgsCross.musl64;
+            in
+            pkgs.callPackage ./nix {
+              static = true;
+              nix-filter = nix-filter.lib;
+              ocamlPackages = pkgs.ocamlPackages;
+            };
+        };
         defaultPackage = packages.native;
-        devShell = import ./shell.nix { inherit pkgs; };
+        devShells.default = pkgs.callPackage ./nix/shell.nix {
+          inherit packages;
+        };
+        devShells.melange = pkgs.callPackage ./nix/melange-shell.nix {
+          melange-flake = melange;
+        };
       });
 }

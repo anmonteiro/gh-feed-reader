@@ -1449,11 +1449,6 @@
   dependencies:
     object-assign "^4.1.1"
 
-"@rescript/react@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@rescript/react/-/react-0.10.3.tgz#a2a8bed6b017940ec26c2154764b350f50348889"
-  integrity sha512-Lf9rzrR3bQPKJjOK3PBRa/B3xrJ7CqQ1HYr9VHPVxJidarIJJFZBhj0Dg1uZURX+Wg/xiP0PHFxXmdj2bK8Vxw==
-
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
@@ -8543,6 +8538,11 @@ reason-promise@^1.0.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/reason-promise/-/reason-promise-1.1.5.tgz#ea1d074428e13cbf75f749425b0fd698e94a0cd9"
   integrity sha512-T4VI8e3WrQ30HbQcmQ8HvJPZckD4AeTcZ+1aNdpJ/pjjRwjlBy63hr4v8fMSID0/6kPh1KrhN+5+4n7MouoZKQ==
+
+reason-react@*:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/reason-react/-/reason-react-0.10.0.tgz#2449c1817192c4a18b4cfc1681694e9d586f31b3"
+  integrity sha512-NFet0/IC4wXmDR+OdCq/eh6AgceMRlPUXfBSrobewZlJAGLBNEUgRQ80lIJADAUgkUlWFVzpZ7Y6KESA+n714A==
 
 recursive-readdir@2.2.2:
   version "2.2.2"
