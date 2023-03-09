@@ -1,7 +1,29 @@
+(rule
+ (target feed.ml)
+ (action
+  (copy ../shared/feed_shared.ml %{target})))
+
+(library
+ (name feed_native)
+ (modules feed)
+ (implements feed)
+ (preprocess
+  (pps ppx_deriving_yojson))
+ (melange.compile_flags :standard -w -101 -nopervasives))
+
 (executable
  (name lambda)
- (libraries lambda-runtime vercel piaf logs.fmt fmt.tty uri syndic
-   lambdasoup feed)
+ (modules :standard \ feed)
+ (libraries
+  lambda-runtime
+  vercel
+  piaf
+  logs.fmt
+  fmt.tty
+  uri
+  syndic
+  lambdasoup
+  feed_native)
  (preprocess
   (pps ppx_deriving_yojson)))
 

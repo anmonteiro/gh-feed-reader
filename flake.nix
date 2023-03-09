@@ -3,8 +3,8 @@
 
   inputs.nix-filter.url = "github:numtide/nix-filter";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:anmonteiro/nix-overlays";
-  inputs.melange.url = "github:melange-re/melange?rev=7bd2b36cd21a4edcd369964ebc50d95d8769e218";
+  inputs.nixpkgs.url = "github:nix-ocaml/nix-overlays";
+  inputs.melange.url = "github:melange-re/melange";
   inputs.melange.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nixpkgs, flake-utils, nix-filter, melange }:

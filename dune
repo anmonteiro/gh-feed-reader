@@ -41,7 +41,7 @@
 
 (melange.emit
  (target dist)
- (module_system es6)
+ (module_systems es6)
  (alias melange)
  (libraries melange feed_mel index))
 
