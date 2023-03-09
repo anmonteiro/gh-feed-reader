@@ -128,9 +128,8 @@ let get_feed env ~sw ?page ?token user =
   | Ok { Piaf.Response.body; _ } -> Piaf.Body.to_string body
   | Error msg -> Error msg
 
-let _handler reqd ({ sw; env; _ } : Lambda_runtime.Context.t) =
+let handler reqd ({ sw; env; _ } : Lambda_runtime.Context.t) =
   let { Piaf.Request.target; _ } = reqd in
-  let usage = "Usage:\n gh-feed.anmonteiro.now.sh/?user=username&page=N" in
   let uri = Uri.of_string target in
   let page = Uri.get_query_param uri "page" in
   let token = Uri.get_query_param uri "token" in
@@ -143,23 +142,116 @@ let _handler reqd ({ sw; env; _ } : Lambda_runtime.Context.t) =
     | Error e ->
       let msg = Piaf.Error.to_string e in
       send_error_response msg)
-  | None -> send_error_response usage
+  | None ->
+    let usage = "Usage:\n gh-feed.anmonteiro.now.sh/?user=username&page=N" in
+    send_error_response usage
 
-let setup_log ?style_renderer level =
-  Fmt_tty.setup_std_outputs ?style_renderer ();
-  Logs.set_level (Some level);
-  Logs.set_reporter (Logs_fmt.reporter ())
+(* let () = *)
+(* setup_log Logs.Debug; *)
+(* (* Vercel.lambda handler *) *)
+(* let open Eio.Std in *)
+(* Eio_main.run (fun env -> *)
+(* Switch.run (fun sw -> *)
+(* match get_feed ~sw env "anmonteiro" with *)
+(* | Ok feed -> *)
+(* let _feed_json = handle (`String (0, feed)) |> Feed.to_yojson in *)
+(* Format.eprintf "got %a@." Yojson.Safe.pp _feed_json *)
+(* | Error e -> *)
+(* let msg = Piaf.Error.to_string e in *)
+(* failwith msg)) *)
 
-let () =
-  setup_log Logs.Debug;
-  (* Vercel.lambda handler *)
-  let open Eio.Std in
-  Eio_main.run (fun env ->
-      Switch.run (fun sw ->
-          match get_feed ~sw env "anmonteiro" with
-          | Ok feed ->
-            let _feed_json = handle (`String (0, feed)) |> Feed.to_yojson in
-            Format.eprintf "got %a@." Yojson.Safe.pp _feed_json
-          | Error e ->
-            let msg = Piaf.Error.to_string e in
-            failwith msg))
+module Dev_server = struct
+  open Eio.Std
+  open Piaf
+
+  module MockConfigProvider = struct
+    (* let get_runtime_api_endpoint () = "localhost:8080" *)
+
+    let get_deadline secs =
+      let now_ms = Unix.gettimeofday () *. 1000. in
+      let deadline_f = now_ms +. (float_of_int secs *. 1000.) in
+      Int64.of_float deadline_f
+
+    let test_context deadline =
+      { Lambda_runtime.Context.memory_limit_in_mb = 128
+      ; function_name = "test_func"
+      ; function_version = "$LATEST"
+      ; invoked_function_arn = "arn:aws:lambda"
+      ; aws_request_id = "123"
+      ; xray_trace_id = Some "123"
+      ; log_stream_name = "logStream"
+      ; log_group_name = "logGroup"
+      ; client_context = None
+      ; identity = None
+      ; deadline = get_deadline deadline
+      }
+  end
+
+  let request_handler
+      ~env
+      handler
+      { Server.ctx = { Request_info.sw; _ }; request }
+    =
+    let invocation_context =
+      { Lambda_runtime.Context.invocation_context =
+          MockConfigProvider.test_context 300
+      ; sw
+      ; env
+      }
+    in
+    match handler request invocation_context with
+    | Ok response -> response
+    | Error reason ->
+      let headers = Headers.of_list [ "connection", "close" ] in
+      Response.of_string ~headers `Internal_server_error ~body:reason
+
+  let lambda_dev_server
+      ~interrupt
+      ~f:
+        (handler :
+          Piaf.Request.t
+          -> Lambda_runtime.Context.t
+          -> (Piaf.Response.t, string) result)
+      port
+    =
+    let config =
+      Server.Config.(create (`Tcp (Eio.Net.Ipaddr.V4.loopback, port)))
+    in
+    Eio_main.run (fun env ->
+        Eio.Switch.run (fun sw ->
+            let server = Server.create ~config (request_handler ~env handler) in
+            let command = Server.Command.start ~sw env server in
+            (* Eio.Time.sleep (Eio.Stdenv.clock env) 5.; *)
+            (* Server.Command.shutdown command *)
+            Fiber.first
+              (fun () ->
+                Eio.Condition.await_no_mutex interrupt;
+                traceln "Cancelled at user's request.";
+                Server.Command.shutdown command)
+              (fun () ->
+                traceln "Running operation (Ctrl-C to cancel)...";
+                Fiber.await_cancel ())))
+
+  let setup_log ?style_renderer level =
+    Fmt_tty.setup_std_outputs ?style_renderer ();
+    Logs.set_level (Some level);
+    Logs.set_reporter (Logs_fmt.reporter ());
+    ()
+
+  let () =
+    setup_log Logs.Info;
+    let port = ref 8080 in
+    Arg.parse
+      [ "-p", Arg.Set_int port, " Listening port number (8080 by default)" ]
+      ignore
+      "Echoes POST requests. Runs forever.";
+    let interrupt = Eio.Condition.create () in
+    let handle_signal (_signum : int) =
+      (* Warning: we're in a signal handler now. Most operations are unsafe
+         here, except for Eio.Condition.broadcast! *)
+      Eio.Condition.broadcast interrupt
+    in
+    Sys.set_signal Sys.sigint (Signal_handle handle_signal);
+
+    lambda_dev_server ~interrupt ~f:handler !port
+end

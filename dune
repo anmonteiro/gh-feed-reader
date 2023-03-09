@@ -3,7 +3,10 @@
   (ocamlopt_flags
    (:standard -O3 -unbox-closures))))
 
-(vendored_dirs node_modules)
+(subdir
+ node_modules
+ (dirs reason-react reason-promise bs-fetch bs-decoders)
+ (data_only_dirs bs-decoders))
 
 (subdir
  node_modules/reason-react/src
@@ -25,10 +28,6 @@
  (library
   (name bs_fetch)
   (modes melange)))
-
-(subdir
- node_modules
- (data_only_dirs bs-decoders))
 
 (subdir
  node_modules/bs-decoders/src-bs
