@@ -47,20 +47,22 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
-    "react": "experimental",
+    "react": "next",
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
+    "react-dom": "next",
     "reason-promise": "^1.0.0",
     "reason-react": "*",
     "resolve": "1.10.0",
-    "sass-loader": "7.1.0",
+    "sass": "^1.58.3",
+    "sass-loader": "^10.4.1",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "swr": "^0.3.0",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
     "url-loader": "1.1.2",
-    "webpack": "4.29.6",
+    "webpack": "^4.46.0",
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "4.2.0"
@@ -75,10 +77,10 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "reason-react/**/react": "0.0.0-experimental-94c0244ba",
-    "reason-react/**/react-dom": "0.0.0-experimental-94c0244ba",
-    "react": "0.0.0-experimental-79ed5e18f-20220217",
-    "react-dom": "0.0.0-experimental-79ed5e18f-20220217"
+    "reason-react/**/react": "18.3.0-next-9fb2469a6-20230308",
+    "reason-react/**/react-dom": "18.3.0-next-9fb2469a6-20230308",
+    "react": "18.3.0-next-9fb2469a6-20230308",
+    "react-dom": "18.3.0-next-9fb2469a6-20230308"
   },
   "browserslist": [
     ">0.2%",

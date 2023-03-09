@@ -23,7 +23,7 @@ function ensureSlash(inputPath, needsSlash) {
 }
 
 const getPublicUrl = appPackageJson =>
-  envPublicUrl || require(appPackageJson).homepage;
+    envPublicUrl || require(appPackageJson).homepage;
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -34,7 +34,7 @@ const getPublicUrl = appPackageJson =>
 function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
   const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+      envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
   return ensureSlash(servedUrl, true);
 }
 
@@ -54,9 +54,8 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
-  const extension = moduleFileExtensions.find(extension =>
-    fs.existsSync(resolveFn(`${filePath}.${extension}`))
-  );
+  const extension = moduleFileExtensions.find(
+      extension => fs.existsSync(resolveFn(`${filePath}.${extension}`)));
 
   if (extension) {
     return resolveFn(`${filePath}.${extension}`);
@@ -65,26 +64,27 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
+const src_artifacts_dir = './_build/default/src/dist/';
+
 // config after eject: we're in ./config/
 module.exports = {
-  dotenv: resolveApp('.env'),
-  appPath: resolveApp('.'),
-  appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'src/index.bs'),
-  appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  appTsConfig: resolveApp('tsconfig.json'),
-  appJsConfig: resolveApp('jsconfig.json'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveModule(resolveApp, 'src/setupTests'),
-  proxySetup: resolveApp('src/setupProxy.js'),
-  appNodeModules: resolveApp('node_modules'),
-  publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
+  dotenv : resolveApp('.env'),
+  appPath : resolveApp('.'),
+  appBuild : resolveApp('build'),
+  appPublic : resolveApp('public'),
+  appHtml : resolveApp('public/index.html'),
+  appIndexJs :
+      resolveModule(resolveApp, path.join(src_artifacts_dir, 'src/index.bs')),
+  appPackageJson : resolveApp('package.json'),
+  appSrc : resolveApp(src_artifacts_dir),
+  appTsConfig : resolveApp('tsconfig.json'),
+  appJsConfig : resolveApp('jsconfig.json'),
+  yarnLockFile : resolveApp('yarn.lock'),
+  testsSetup : resolveModule(resolveApp, 'src/setupTests'),
+  proxySetup : resolveApp('src/setupProxy.js'),
+  appNodeModules : resolveApp('node_modules'),
+  publicUrl : getPublicUrl(resolveApp('package.json')),
+  servedPath : getServedPath(resolveApp('package.json')),
 };
-
-
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
