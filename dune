@@ -3,6 +3,8 @@
   (ocamlopt_flags
    (:standard -O3 -unbox-closures))))
 
+(vendored_dirs node_modules)
+
 (subdir
  node_modules
  (dirs reason-react reason-promise bs-fetch bs-decoders)
@@ -37,11 +39,3 @@
  (library
   (name decoders_bs)
   (modes melange)))
-
-(melange.emit
- (target dist)
- (module_systems es6)
- (alias melange)
- (libraries melange feed_mel index))
-
-;;;;{BSB GENERATED: NO EDIT;;;;BSB GENERATED: NO EDIT}

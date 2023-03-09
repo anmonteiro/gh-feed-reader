@@ -10,10 +10,10 @@
  (implements feed)
  (melange.compile_flags :standard -w -101 -nopervasives))
 
-(library
- (name index)
- (modes melange)
- (modules :standard \ feed)
- (flags :standard -w -9)
- (melange.compile_flags :standard -bs-jsx 3)
- (libraries feed_mel promise bs_fetch decoders_bs reason_react))
+(melange.emit
+ (target dist)
+ (module_systems es6)
+ (alias melange)
+ (entries :standard \ feed)
+ (compile_flags :standard -bs-jsx 3 -w -9)
+ (libraries melange feed_mel promise bs_fetch decoders_bs reason_react))
