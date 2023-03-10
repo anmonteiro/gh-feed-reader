@@ -5,7 +5,7 @@ let parseFeed = payload =>
   };
 
 let feedEndpoint = (~token=?, ~page, user) => {
-  let endpoint = {j|https://gh-feed.now.sh/api?user=$(user)&page=$(page)|j};
+  let endpoint = {j|/api?user=$(user)&page=$(page)|j};
   switch (token) {
   | None => endpoint
   | Some(token) => {j|$(endpoint)&token=$(token)|j}

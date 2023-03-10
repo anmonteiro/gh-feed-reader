@@ -1,27 +1,19 @@
 {
   "name": "gh-feed",
-  "alias": "gh.an.wtf",
-  "version": 2,
   "regions": [
     "sfo1"
   ],
-  "builds": [
-    {
-      "src": "+(bootstrap|cacert.pem)",
-      "use": "now-custom-runtime"
-    },
-    {
-      "src": "package.json",
-      "use": "@now/static-build",
-      "config": {
-        "distDir": "build"
-      }
+  "functions": {
+    "api/bootstrap": {
+      "runtime": "now-custom-runtime@0.0.6-alpha.0",
+      "includeFiles": "cacert.pem"
     }
-  ],
+  },
+  "outputDirectory": "build",
   "routes": [
     {
       "src": "/api",
-      "dest": "/bootstrap",
+      "dest": "/api/bootstrap",
       "headers": {
         "cache-control": "s-maxage=180",
         "access-control-allow-origin": "*"
