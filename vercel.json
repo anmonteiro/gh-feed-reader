@@ -1,0 +1,50 @@
+{
+  "name": "gh-feed",
+  "regions": [
+    "sfo1"
+  ],
+  "functions": {
+    "api/bootstrap": {
+      "runtime": "now-custom-runtime@0.0.6-alpha.0",
+      "includeFiles": "cacert.pem"
+    }
+  },
+  "outputDirectory": "build",
+  "routes": [
+    {
+      "src": "/api",
+      "dest": "/api/bootstrap",
+      "headers": {
+        "cache-control": "s-maxage=180",
+        "access-control-allow-origin": "*"
+      }
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/asset-manifest.json",
+      "dest": "/asset-manifest.json"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "/precache-manifest.(.*)",
+      "dest": "/precache-manifest.$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      }
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}

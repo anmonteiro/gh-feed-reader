@@ -1,4 +1,0 @@
-(library
- (name feed)
- (preprocess
-  (pps ppx_deriving_yojson)))

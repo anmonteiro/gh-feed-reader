@@ -1,0 +1,5 @@
+(include_subdirs qualified)
+
+(executable
+ (name builder)
+ (libraries stdune dune-glob lev-fiber spawn threads.posix yojson))

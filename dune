@@ -3,4 +3,39 @@
   (ocamlopt_flags
    (:standard -O3 -unbox-closures))))
 
-;;;;{BSB GENERATED: NO EDIT;;;;BSB GENERATED: NO EDIT}
+(vendored_dirs node_modules)
+
+(subdir
+ node_modules
+ (dirs reason-react reason-promise bs-fetch bs-decoders)
+ (data_only_dirs bs-decoders))
+
+(subdir
+ node_modules/reason-react/src
+ (include_subdirs unqualified)
+ (library
+  (name reason_react)
+  (wrapped false)
+  (flags :standard -bs-jsx 3)
+  (modes melange)))
+
+(subdir
+ node_modules/reason-promise/src/js
+ (library
+  (name promise)
+  (modes melange)))
+
+(subdir
+ node_modules/bs-fetch/src
+ (library
+  (name bs_fetch)
+  (modes melange)))
+
+(subdir
+ node_modules/bs-decoders/src-bs
+ (copy_files# ../src/encode.ml{,i})
+ (copy_files# ../src/decode.ml{,i})
+ (copy_files# ../src/decoders.ml)
+ (library
+  (name decoders_bs)
+  (modes melange)))
