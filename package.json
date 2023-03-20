@@ -89,7 +89,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "vercel": "^28.16.15"
   },
   "installConfig": {
     "pnp": false

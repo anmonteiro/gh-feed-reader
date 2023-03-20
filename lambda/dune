@@ -1,12 +1,9 @@
-(rule
- (target feed.ml)
- (action
-  (copy ../shared/feed_shared.ml %{target})))
+(copy_files ../shared/feed.ml{,i})
 
 (library
  (name feed_native)
  (modules feed)
- (implements feed)
+ (wrapped false)
  (preprocess
   (pps ppx_deriving_yojson))
  (melange.compile_flags :standard -w -101 -nopervasives))

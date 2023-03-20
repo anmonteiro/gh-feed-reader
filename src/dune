@@ -1,13 +1,10 @@
-(rule
- (target feed.ml)
- (action
-  (copy ../shared/feed_shared.ml %{target})))
+(copy_files ../shared/feed.ml{,i})
 
 (library
  (name feed_mel)
  (modes melange)
  (modules feed)
- (implements feed)
+ (wrapped false)
  (melange.compile_flags :standard -w -101 -nopervasives))
 
 (melange.emit
@@ -15,7 +12,7 @@
  (module_systems
   (es6 bs.js))
  (alias melange)
- (entries :standard \ feed)
+ (modules :standard \ feed)
  (compile_flags :standard -bs-jsx 3 -w -9)
  (libraries melange feed_mel promise bs_fetch decoders_bs reason_react)
  (runtime_deps
